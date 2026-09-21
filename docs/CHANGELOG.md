@@ -39,8 +39,19 @@ Changes made to the code and documentation after the benchmark release. Dates ar
   Everything a run writes for a KG is now under `Output/<KG>/` (`predictions/`, `enriched/`, `validation/`,
   `transformed/`). The `Predictions/` folders of the other benchmarks are earlier results and are not moved.
   "Expanded" is the graph after predicate-object expansion, "normalized" the final graph. The files written
-  by TravSHACL in `validation/` keep their names. Benchmark results already committed under the old names
-  are not renamed.
+  by TravSHACL in `validation/` keep their names.
+- **Committed `Transformed_<Benchmark>/` folders moved into `Output/<KG>/transformed/`:**
+
+  | Before | Now |
+  |---|---|
+  | `Transformed_SGKG4/TransformedKG_SGKG4.nt` | `Output/SGKG/transformed/SGKG_normalized.nt` |
+  | `Transformed_SGKG4/TransformedKG_SGKG4.tsv` | `Output/SGKG/transformed/SGKG_normalized.tsv` |
+  | `Transformed_SynthLC-1000/TransformedKG_SynthLC-1000.nt` | `Output/SynthLC-1000/transformed/SynthLC-1000_normalized.nt` |
+  | `Transformed_SynthLC-1000/TransformedKG_SynLC.tsv` | `Output/SynthLC-1000/transformed/SynthLC-1000_normalized.tsv` |
+
+  The SGKG results are filed under the KG name `SGKG` (the name of its `KG/`, `Constraints/` and
+  `Predictions/` folders), not `SGKG4`. `Transformed_FrenchRoyalty/` was deleted, since a fresh run replaces
+  it in `Output/FrenchRoyalty/transformed/`. The `Predictions/` folders of SGKG and SynthLC are not moved.
 - **`Validation.py`**: `travshacl(enrichedKG, constraints, kg)` is now
   `travshacl(enrichedKG, constraints, output_dir)`. It creates `output_dir` if it does not exist.
 - **`Symbolic_predictions.py`**: `initialize()` also returns `validation_folder` (`Output/<KG>/validation`)

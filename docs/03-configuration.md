@@ -22,7 +22,7 @@ accident.
 |---|---|---|---|
 | `KG` | string | Name of the run. Names the input folder and all output folders/files. | `KG/<KG>/`, `Output/<KG>/validation/`, `Output/<KG>/transformed/` |
 | `prefix` | string | Namespace prepended to bare names when reading rules, and stripped from results. Must end in `/` or `#`. | SPARQL `PREFIX ex:` |
-| `rules_file` | string | File name of the rules CSV. | `Rules/<rules_file>` |
+| `rules_file` | string | File name of the rules CSV. It sits next to the graph, in the folder of the KG. | `KG/<KG>/<rules_file>` |
 | `rdf_file` | string | File name of the N-Triples graph. | `KG/<KG>/<rdf_file>` |
 | `constraints_folder` | string | Name of the folder holding the SHACL shapes. | `Constraints/<constraints_folder>/` |
 | `log_level` | string | Present for compatibility. **Currently ignored**: the script always logs at `INFO`. | - |
@@ -36,7 +36,7 @@ accident.
 | Purpose | Path |
 |---|---|
 | Input graph | `KG/<KG>/<rdf_file>` |
-| Rules | `Rules/<rules_file>` |
+| Rules | `KG/<KG>/<rules_file>` |
 | SHACL shapes | `Constraints/<constraints_folder>/` |
 | Shapes file read by the normalization step | `Constraints/<constraints_folder>/<constraints_folder>.ttl` |
 | Predictions per predicate | `Output/<KG>/predictions/<predicate>.tsv` |

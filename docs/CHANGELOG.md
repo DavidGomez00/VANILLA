@@ -60,6 +60,13 @@ Changes made to the code and documentation after the benchmark release. Dates ar
   | `Predictions/<KG>_predictions/<predicate>.tsv` | `Output/<KG>/predictions/<predicate>.tsv` |
   | `Predictions/SGKG_EnrichedKG/SGKG4_Enriched_KG.{nt,tsv}` | `Output/SGKG/enriched/SGKG_enriched.{nt,tsv}` |
   | `Predictions/<KG>_EnrichedKG/<KG>_Enriched_KG.nt` | `Output/<KG>/enriched/<KG>_enriched.nt` |
+- **Rules are read from the KG's folder.**
+  - Before: `Rules/<rules_file>`.
+  - Now: `KG/<KG>/<rules_file>`, next to the graph. The `Rules/` folder no longer exists.
+  - Bundled files moved: `french_royalty.csv` to `KG/FrenchRoyalty/`, `SGKG4-0.3.csv` to `KG/SGKG/`,
+    `synLC_1000.csv` to `KG/SynthLC-1000/`, `synLC_10000.csv` to `KG/SynthLC-10000/`, `DB100K.csv` to
+    `KG/DB100K/` and `YAGO3-10.csv` to `KG/YAGO3-10/`. The last three folders are new and hold only the rules,
+    since the graphs for those benchmarks are not in the repository.
 - **`Validation.py`**: `travshacl(enrichedKG, constraints, kg)` is now
   `travshacl(enrichedKG, constraints, output_dir)`. It creates `output_dir` if it does not exist.
 - **`Symbolic_predictions.py`**: `initialize()` also returns `validation_folder` (`Output/<KG>/validation`)
@@ -91,6 +98,7 @@ Changes made to the code and documentation after the benchmark release. Dates ar
 - Existing `Constraints/<Benchmark>/result_<Benchmark>/` folders are untouched and still contain earlier
   results. They are not read by the current code. If you point a run at one of those constraint folders,
   delete or move its `result_*` subfolder first (TravSHACL would parse the report inside).
+- Move your own rules files from `Rules/` to `KG/<KG>/`.
 - Code calling `travshacl(..., kg)` must pass an output directory instead of the KG name.
 - Code calling `transform(...)` with the default arguments now expects the report under
   `Output/<kg_name>/validation/`, and writes its results to `Output/<kg_name>/transformed/`.

@@ -31,7 +31,7 @@ normalize a graph. Part 2 is described in [09](09-validated-kg-completion.md).
 ```mermaid
 flowchart LR
     KG[("KG<br/>KG/&lt;KG&gt;/*.nt")] --> P
-    R[("Rules<br/>Rules/*.csv")] --> P
+    R[("Rules<br/>KG/&lt;KG&gt;/*.csv")] --> P
     P["1. Rule application<br/>process_rules"] --> E[("Enriched KG<br/>Output/&lt;KG&gt;/enriched")]
     P --> PR[("Predictions per predicate<br/>Output/&lt;KG&gt;/predictions")]
     E --> V["2. SHACL validation<br/>travshacl"]
@@ -82,8 +82,7 @@ the nodes that *violate* a domain rule.
 | Small | French Royalty | 10,526 | 2,601 | 12 | 2 | 1,922 | 298 |
 | Small | SynthLC-1000 | 10,668 | 1,000 | 9 | 25 | 22,335 | 2,665 |
 
-Inputs and earlier results for these benchmarks are stored under `KG_Normalization/KG/`,
-`KG_Normalization/Rules/` and `KG_Normalization/Constraints/`.
+Inputs and earlier results for these benchmarks are stored under `KG_Normalization/KG/` (graph and rules) and `KG_Normalization/Constraints/`.
 
 > **Note on the French Royalty variants.** The benchmark graph in `KG/FrenchRoyalty/` has 12 relations
 > (including `hasSpouse`, `gender`, `name`, `marriedTo`). A simplified variant of the same graph with 8

@@ -5,7 +5,7 @@ The normalization pipeline needs three inputs, and each has a strict format.
 | Input | Format | Location | Set by |
 |---|---|---|---|
 | Knowledge graph | N-Triples (`.nt`) | `KG_Normalization/KG/<KG>/<rdf_file>` | `KG`, `rdf_file` |
-| Rules | CSV, AMIE-style | `KG_Normalization/Rules/<rules_file>` | `rules_file` |
+| Rules | CSV, AMIE-style | `KG_Normalization/KG/<KG>/<rules_file>` | `rules_file` |
 | Constraints | Turtle (`.ttl`) with SHACL-SPARQL shapes | `KG_Normalization/Constraints/<constraints_folder>/` | `constraints_folder` |
 
 ## Knowledge graph: N-Triples
@@ -90,7 +90,7 @@ ValueError: Missing required column(s) in rules file: body, head, pca_confidence
 Column names must be lowercase, found: [...]
 ```
 
-All rule files bundled in `KG_Normalization/Rules/` use the lowercase names. To convert a file from another
+All rule files bundled in `KG_Normalization/KG/<KG>/` use the lowercase names. To convert a file from another
 tool, rename its columns, for example:
 
 ```python
@@ -102,7 +102,7 @@ df = df.rename(columns={
     "standard_confidence": "std_confidence",
     "support": "positive_examples",
 })
-df.to_csv("KG_Normalization/Rules/my_rules.csv", index=False)
+df.to_csv("KG_Normalization/KG/<KG>/my_rules.csv", index=False)
 ```
 
 Check the result: `body`, `head`, `pca_confidence`, `std_confidence` and `functional_variable` must be present.

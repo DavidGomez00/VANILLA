@@ -10,7 +10,7 @@ names with your own.
 |---|---|---|
 | 1 | Triples as a TSV | `.data/<name>/<name>.tsv` (any location works) |
 | 2 | The same triples as N-Triples | `KG_Normalization/KG/<KG>/<name>.nt` |
-| 3 | Rules with PCA confidence between the threshold and 1 | `KG_Normalization/Rules/<rules>.csv` |
+| 3 | Rules with PCA confidence between the threshold and 1 | `KG_Normalization/KG/<KG>/<rules>.csv` |
 | 4 | SHACL shapes for the relations of your graph | `KG_Normalization/Constraints/<constraints>/<constraints>.ttl` |
 | 5 | A matching `input.json` | `KG_Normalization/input.json` |
 
@@ -56,7 +56,7 @@ positive examples, body size, PCA body size and functional variable. Two situati
 
 ```python
 import pandas as pd
-r = pd.read_csv("Rules/my_rules.csv")
+r = pd.read_csv("KG/FrenchRoyaltyTSV/my_rules.csv")
 t = 0.75
 print(((r["pca_confidence"] > t) & (r["pca_confidence"] < 1)).sum(), "rules will be used")
 ```
@@ -104,7 +104,7 @@ Edit `KG_Normalization/input.json`:
 Checklist:
 
 - `KG/FrenchRoyaltyTSV/french_royalty.nt` exists.
-- `Rules/my_rules.csv` exists and has the required columns.
+- `KG/FrenchRoyaltyTSV/my_rules.csv` exists and has the required columns.
 - `Constraints/FrenchRoyaltyTSV/FrenchRoyaltyTSV.ttl` exists.
 - `prefix` equals the namespace in the `.nt` and in the shapes.
 

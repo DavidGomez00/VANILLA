@@ -51,7 +51,7 @@ Reads the JSON configuration and returns, in this order:
 | # | Name | Value |
 |---|---|---|
 | 1 | `prefix` | `input["prefix"]` |
-| 2 | `rules` | `Rules/<rules_file>` |
+| 2 | `rules` | `KG/<KG>/<rules_file>` |
 | 3 | `rdf` | `KG/<KG>/<rdf_file>` |
 | 4 | `path` | `KG/<KG>` |
 | 5 | `predictions_folder` | `Output/<KG>/predictions` |

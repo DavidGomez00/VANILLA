@@ -41,8 +41,7 @@ VANILLA/
 │   ├── Validation.py               SHACL validation with TravSHACL
 │   ├── Normalization_transform.py  Rewrites triples that violate constraints
 │   ├── tsv_to_nt.py                Utility: TSV triples -> N-Triples
-│   ├── KG/<KG>/                    Input graphs (.nt)
-│   ├── Rules/                      Input rule files (.csv)
+│   ├── KG/<KG>/                    Input graph (.nt) and rules (.csv)
 │   ├── Constraints/<name>/         Input SHACL shapes (.ttl only)
 │   └── Output/<KG>/                Output: predictions/, enriched/, validation/ and transformed/
 │

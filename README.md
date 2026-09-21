@@ -15,7 +15,7 @@ Full documentation (installation, configuration, data formats, pipeline internal
 ```
 .
 ├── KG_Normalization/                         # KG Normalization
-│   ├── KG/                         # Benchmark knowledge graphs
+│   ├── KG/                         # Benchmark knowledge graphs and their symbolic rules
 │   ├── French_Royalty/
 │   ├── SGKG/
 │   ├── SynthLC-1000/
@@ -23,13 +23,6 @@ Full documentation (installation, configuration, data formats, pipeline internal
 │   ├── YAGO3-10/
 │   └── DB100K/
 │
-|   ├── Rules/                      # Symbolic horn rules for each benchmark
-│   ├── French_Royalty/
-│   ├── SGKG/
-│   ├── SynthLC-1000/
-│   ├── SynthLC-10000/
-│   ├── YAGO3-10/
-│   └── DB100K/
 |   ├── Constraints/                # SHACL constraints
 │   ├── French_Royalty/
 │   ├── SGKG/

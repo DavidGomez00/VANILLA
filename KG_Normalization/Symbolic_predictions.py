@@ -411,7 +411,7 @@ def initialize(input_config):
     prefix = input_data['prefix']
     kg = input_data['KG']
     path = os.path.join('KG', input_data['KG'])
-    rules = os.path.join('Rules', input_data['rules_file'])
+    rules = os.path.join(path, input_data['rules_file'])
     rdf = os.path.join(path, input_data['rdf_file'])
     output_folder = os.path.join('Output', input_data['KG'])
     predictions_folder = os.path.join(output_folder, 'predictions')

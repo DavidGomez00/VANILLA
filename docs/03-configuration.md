@@ -20,7 +20,7 @@ accident.
 
 | Key | Type | Meaning | Used to build |
 |---|---|---|---|
-| `KG` | string | Name of the run. Names the input folder and all output folders/files. | `KG/<KG>/`, `Predictions/<KG>_*`, `Output/<KG>/validation/`, `Output/<KG>/transformed/` |
+| `KG` | string | Name of the run. Names the input folder and all output folders/files. | `KG/<KG>/`, `Output/<KG>/validation/`, `Output/<KG>/transformed/` |
 | `prefix` | string | Namespace prepended to bare names when reading rules, and stripped from results. Must end in `/` or `#`. | SPARQL `PREFIX ex:` |
 | `rules_file` | string | File name of the rules CSV. | `Rules/<rules_file>` |
 | `rdf_file` | string | File name of the N-Triples graph. | `KG/<KG>/<rdf_file>` |
@@ -39,8 +39,8 @@ accident.
 | Rules | `Rules/<rules_file>` |
 | SHACL shapes | `Constraints/<constraints_folder>/` |
 | Shapes file read by the normalization step | `Constraints/<constraints_folder>/<constraints_folder>.ttl` |
-| Predictions per predicate | `Predictions/<KG>_predictions/<predicate>.tsv` |
-| Enriched KG | `Predictions/<KG>_enriched/<KG>_enriched.nt` |
+| Predictions per predicate | `Output/<KG>/predictions/<predicate>.tsv` |
+| Enriched KG | `Output/<KG>/enriched/<KG>_enriched.nt` |
 | Validation results | `Output/<KG>/validation/` |
 | Normalized KG | `Output/<KG>/transformed/` |
 | Log file | `logs/symbolic_predictions_<timestamp>.log` |

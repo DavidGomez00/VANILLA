@@ -98,7 +98,7 @@ subject `?a1`. When `functional_variable` is `?a` this extra restriction is skip
 `!EXISTS` filter applies.
 
 Each result becomes a `(subject, head_predicate, object)` row with the namespace prefix removed. Results of
-all rules of one head predicate are written to `Predictions/<KG>_predictions/<predicate>.tsv`.
+all rules of one head predicate are written to `Output/<KG>/predictions/<predicate>.tsv`.
 
 > **Performance.** The graph is re-read from disk for every rule (`load_graph` is called once per query),
 > parsed line by line. On graphs of about 10,000 triples with 85 rules a run takes under a minute. On graphs
@@ -107,7 +107,7 @@ all rules of one head predicate are written to `Predictions/<KG>_predictions/<pr
 ### 1.5 Build the enriched KG
 
 All predictions are added to an `rdflib` graph that was loaded from the input `.nt`. The result is
-serialized to `Predictions/<KG>_enriched/<KG>_enriched.nt`.
+serialized to `Output/<KG>/enriched/<KG>_enriched.nt`.
 
 A summary is printed and logged: rules used, predictions generated, predictions per rule, and both counts
 per predicate.
@@ -205,11 +205,11 @@ triples, initially transformed triples, final transformed triples, and violation
 For each run you get, under `KG_Normalization/`:
 
 ```
-Predictions/<KG>_predictions/           <predicate>.tsv, one per predicted predicate
-Predictions/<KG>_enriched/               <KG>_enriched.nt
-Output/<KG>/validation/                 validationReport.ttl, stats.txt, ...
-Output/<KG>/transformed/                <KG>_expanded.nt, <KG>_normalized.nt
-logs/                                   symbolic_predictions_<timestamp>.log
+Output/<KG>/predictions/     <predicate>.tsv, one per predicted predicate
+Output/<KG>/enriched/        <KG>_enriched.nt
+Output/<KG>/validation/      validationReport.ttl, stats.txt, ...
+Output/<KG>/transformed/     <KG>_expanded.nt, <KG>_normalized.nt
+logs/                        symbolic_predictions_<timestamp>.log
 ```
 
 Re-running with the same `KG` name overwrites these outputs.

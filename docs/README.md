@@ -44,8 +44,8 @@ VANILLA/
 │   ├── KG/<KG>/                    Input graphs (.nt)
 │   ├── Rules/                      Input rule files (.csv)
 │   ├── Constraints/<name>/         Input SHACL shapes (.ttl only)
-│   ├── Predictions/                Output: predicted triples and the enriched KG
-│   └── Output/<KG>/                Output: validation/ (SHACL reports) and transformed/ (the normalized KG)
+│   ├── Predictions/                Earlier benchmark results (not written by the current code)
+│   └── Output/<KG>/                Output: predictions/, enriched/, validation/ and transformed/
 │
 └── Validated_KG_Completion/        Part 2: link prediction on the normalized KG
     ├── KGC.py, input_KGC.json      Train and evaluate embedding models

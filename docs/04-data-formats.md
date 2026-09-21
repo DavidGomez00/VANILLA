@@ -117,8 +117,8 @@ must contain nothing except shape files.
 
 | Output | Format |
 |---|---|
-| `Predictions/<KG>_predictions/<predicate>.tsv` | Tab-separated `subject predicate object`, bare names (prefix removed), no header. One file per head predicate that produced predictions. |
-| `Predictions/<KG>_enriched/<KG>_enriched.nt` | N-Triples: the input graph plus all predictions. |
+| `Output/<KG>/predictions/<predicate>.tsv` | Tab-separated `subject predicate object`, bare names (prefix removed), no header. One file per head predicate that produced predictions. |
+| `Output/<KG>/enriched/<KG>_enriched.nt` | N-Triples: the input graph plus all predictions. |
 | `Output/<KG>/validation/validationReport.ttl` | SHACL validation report (Turtle). |
 | `Output/<KG>/validation/stats.txt` | Number of valid and invalid targets, query counts and timings. |
 | `Output/<KG>/validation/targets_valid.log`, `targets_violated.log` | Lists of valid and violating target nodes. |

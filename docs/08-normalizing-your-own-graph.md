@@ -140,7 +140,7 @@ cat Output/FrenchRoyaltyTSV/validation/stats.txt
 
 Interpretation:
 
-- `Predictions/<KG>_predictions/*.tsv` lists the new triples that came from rules.
+- `Output/<KG>/predictions/*.tsv` lists the new triples that came from rules.
 - `stats.txt` gives the numbers of valid and invalid targets.
 - In the diff, lines with `No<Entity>` are the triples that were marked as anomalous.
 - If the diff is empty and violations were found, your shapes probably use `FILTER NOT EXISTS`, which

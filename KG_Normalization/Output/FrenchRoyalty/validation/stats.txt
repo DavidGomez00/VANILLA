@@ -15,16 +15,16 @@ total number of rules:
 number of queries:
 2
 max exec time for a query:
-11807.5966796875
+11577.580810546875
 total query exec time:
-11857.458984375
+11627.230224609375
 max interleaving (+ query exec) time for a query:
 0
 total interleaving (+ query exec) time:
 0
 max (deferred) saturation time:
-0.025390625
+0.026123046875
 total (deferred) saturation time:
-0.025390625
+0.026123046875
 total time:
 4

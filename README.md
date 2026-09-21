@@ -38,7 +38,7 @@ Full documentation (installation, configuration, data formats, pipeline internal
 │   ├── YAGO3-10/
 │   └── DB100K/
 │
-│   ├── Predictions/                # Output predictions
+│   ├── Output/<KG>/                # Output: predictions, enriched, validation, transformed
 │   ├── LICENSE.txt
 │   ├── README.md
 │   ├── input.json

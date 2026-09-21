@@ -18,11 +18,11 @@ Changes made to the code and documentation after the benchmark release. Dates ar
   `requirements.txt`.
 - **`input.json` and `KG_Normalization/README.md`:** `FrenchRoaylty` corrected to `FrenchRoyalty` in `prefix`
   and `constraints_folder`. The old values produced 0 predictions and a "no shapes" error.
-- **One output folder per KG for validation results and transformed KGs.**
+- **One output folder per KG for all results.**
   - Before: validation results in `Constraints/<constraints_folder>/result_<KG>/`, transformed KGs in
-    `Transformed_<KG>/`.
-  - Now: `Output/<KG>/validation/` and `Output/<KG>/transformed/`. Predictions and the enriched KG stay in
-    `Predictions/`.
+    `Transformed_<KG>/`, predictions in `Predictions/`.
+  - Now: `Output/<KG>/validation/`, `Output/<KG>/transformed/`, `Output/<KG>/predictions/` and
+    `Output/<KG>/enriched/`.
   - Existing `Transformed_<Benchmark>/` folders in the repository are earlier results and are not touched.
   - Reason: TravSHACL parses every `.ttl` file under the constraints folder. A `validationReport.ttl`
     produced by an earlier run was parsed as a shape file on the next run and made it fail.
@@ -31,10 +31,13 @@ Changes made to the code and documentation after the benchmark release. Dates ar
 
   | Before | Now |
   |---|---|
-  | `Predictions/<KG>_EnrichedKG/<KG>_Enriched_KG.nt` | `Predictions/<KG>_enriched/<KG>_enriched.nt` |
+  | `Predictions/<KG>_predictions/<predicate>.tsv` | `Output/<KG>/predictions/<predicate>.tsv` |
+  | `Predictions/<KG>_EnrichedKG/<KG>_Enriched_KG.nt` | `Output/<KG>/enriched/<KG>_enriched.nt` |
   | `Transformed_<KG>/InitialTransformedKG_<KG>.nt` | `Output/<KG>/transformed/<KG>_expanded.nt` |
   | `Transformed_<KG>/TransformedKG_<KG>.nt` | `Output/<KG>/transformed/<KG>_normalized.nt` |
 
+  Everything a run writes for a KG is now under `Output/<KG>/` (`predictions/`, `enriched/`, `validation/`,
+  `transformed/`). The `Predictions/` folders of the other benchmarks are earlier results and are not moved.
   "Expanded" is the graph after predicate-object expansion, "normalized" the final graph. The files written
   by TravSHACL in `validation/` keep their names. Benchmark results already committed under the old names
   are not renamed.

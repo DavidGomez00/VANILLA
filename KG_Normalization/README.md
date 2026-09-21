@@ -35,7 +35,7 @@ This will:
 - Output:
   - Transformed KGs
   - Constraint validation reports in `Validation_results/<KG>/` (kept outside `Constraints/`, which must only contain SHACL shape files)
-  - Predictions in `Predictions/`
+  - Predictions and the enriched KG in `Output/<KG>/predictions/` and `Output/<KG>/enriched/`
 
 ## 🧠 Graphical Summary
 

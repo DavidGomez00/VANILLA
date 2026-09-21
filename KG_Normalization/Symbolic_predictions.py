@@ -368,7 +368,7 @@ def process_rules(file, prefix, rdf_data, predictions_folder, kg, pca_threshold)
         pass
 
     # Save enriched knowledge graph
-    enriched_kg_path = os.path.join(os.path.dirname(predictions_folder), f"{kg}_enriched", f"{kg}_enriched.nt")
+    enriched_kg_path = os.path.join(os.path.dirname(predictions_folder), "enriched", f"{kg}_enriched.nt")
     os.makedirs(os.path.dirname(enriched_kg_path), exist_ok=True)
     g.serialize(destination=enriched_kg_path, format='nt')
     print(f"Enriched knowledge graph saved to: {enriched_kg_path}")
@@ -413,9 +413,9 @@ def initialize(input_config):
     path = os.path.join('KG', input_data['KG'])
     rules = os.path.join('Rules', input_data['rules_file'])
     rdf = os.path.join(path, input_data['rdf_file'])
-    predictions_folder = os.path.join('Predictions', input_data['KG'] + "_predictions")
-    constraints = os.path.join('Constraints',input_data['constraints_folder'])
     output_folder = os.path.join('Output', input_data['KG'])
+    predictions_folder = os.path.join(output_folder, 'predictions')
+    constraints = os.path.join('Constraints',input_data['constraints_folder'])
     validation_folder = os.path.join(output_folder, 'validation')
     transformed_folder = os.path.join(output_folder, 'transformed')
     pca_threshold = input_data['pca_threshold']

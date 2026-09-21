@@ -6,7 +6,7 @@ Retrieving (next) targets ...
 Evaluating target query for <http://FrenchRoyalty.org/shapes/FatherWithChildConstraint>:
 
 SELECT ?x WHERE { ?x a <http://FrenchRoyalty.org/Person> }
-elapsed: 49.8623046875 ms
+elapsed: 49.6494140625 ms
 
 Number of targets retrieved: 2211
 
@@ -21,7 +21,7 @@ Evaluating query for http://FrenchRoyalty.org/shapes/FatherWithChildConstraint_d
                 }
             }
 
-elapsed: 11807.5966796875 ms
+elapsed: 11577.580810546875 ms
 
 Number of solution mappings: 280
 
@@ -29,7 +29,7 @@ Number of solution mappings: 280
 >>>>> Starting validation of shape: <http://FrenchRoyalty.org/shapes/FatherWithChildConstraint>
 Starting saturation ...
 saturation ...
-elapsed: 0.025390625 ms
+elapsed: 0.026123046875 ms
 Remaining targets: 0
 
 Maximal number or rules in memory: 0

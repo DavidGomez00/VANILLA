@@ -32,8 +32,8 @@ normalize a graph. Part 2 is described in [09](09-validated-kg-completion.md).
 flowchart LR
     KG[("KG<br/>KG/&lt;KG&gt;/*.nt")] --> P
     R[("Rules<br/>Rules/*.csv")] --> P
-    P["1. Rule application<br/>process_rules"] --> E[("Enriched KG<br/>Predictions/&lt;KG&gt;_enriched")]
-    P --> PR[("Predictions per predicate<br/>Predictions/&lt;KG&gt;_predictions")]
+    P["1. Rule application<br/>process_rules"] --> E[("Enriched KG<br/>Output/&lt;KG&gt;/enriched")]
+    P --> PR[("Predictions per predicate<br/>Output/&lt;KG&gt;/predictions")]
     E --> V["2. SHACL validation<br/>travshacl"]
     C[("SHACL shapes<br/>Constraints/&lt;name&gt;/*.ttl")] --> V
     V --> VR[("Validation report<br/>Output/&lt;KG&gt;/validation")]

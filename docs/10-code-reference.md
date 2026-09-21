@@ -40,7 +40,7 @@ the object column is the constant from the rule head.
 
 Runs stage 1. Filters rules, runs the queries per head predicate, writes
 `<predictions_folder>/<predicate>.tsv` files, builds the enriched graph and writes it to
-`Predictions/<kg>_enriched/<kg>_enriched.nt`. Returns the predictions and the enriched graph.
+`Output/<kg>/enriched/<kg>_enriched.nt`. Returns the predictions and the enriched graph.
 Raises `ValueError` if any required lowercase column (`body`, `head`, `pca_confidence`, `std_confidence`,
 `functional_variable`) is missing.
 
@@ -54,7 +54,7 @@ Reads the JSON configuration and returns, in this order:
 | 2 | `rules` | `Rules/<rules_file>` |
 | 3 | `rdf` | `KG/<KG>/<rdf_file>` |
 | 4 | `path` | `KG/<KG>` |
-| 5 | `predictions_folder` | `Predictions/<KG>_predictions` |
+| 5 | `predictions_folder` | `Output/<KG>/predictions` |
 | 6 | `constraints` | `Constraints/<constraints_folder>` |
 | 7 | `validation_folder` | `Output/<KG>/validation` (**added**) |
 | 8 | `transformed_folder` | `Output/<KG>/transformed` (**added**) |

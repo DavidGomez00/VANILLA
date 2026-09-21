@@ -34,7 +34,7 @@ This will:
 - Validate them against SHACL constraints.
 - Output:
   - Transformed KGs
-  - Constraint validation reports in `Constraints/`
+  - Constraint validation reports in `Validation_results/<KG>/` (kept outside `Constraints/`, which must only contain SHACL shape files)
   - Predictions in `Predictions/`
 
 ## 🧠 Graphical Summary

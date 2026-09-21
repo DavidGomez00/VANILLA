@@ -405,7 +405,8 @@ def initialize(input_config):
             - rdf (str): Path to the RDF file.
             - path (str): Path to the knowledge graph (KG) directory.
             - predictions_folder (str): Path to the predictions folder.
-            - constraints (str): Path to the constraints folder.
+            - constraints (str): Path to the constraints folder (SHACL shapes only).
+            - validation_folder (str): Path to the folder receiving the validation results.
             - kg (str): Name of the knowledge graph (KG).
             - pca_threshold (float): PCA threshold value from the configuration file.
     """
@@ -418,6 +419,7 @@ def initialize(input_config):
     path = os.path.join('KG', input_data['KG'])
     rules = os.path.join('Rules', input_data['rules_file'])
     rdf = os.path.join(path, input_data['rdf_file'])
+    validation_folder = os.path.join('Validation_results', input_data['KG'])
     predictions_folder = os.path.join('Predictions', input_data['KG'] + "_predictions")
     constraints = os.path.join('Constraints',input_data['constraints_folder'])
     pca_threshold = input_data['pca_threshold']
@@ -426,6 +428,7 @@ def initialize(input_config):
           f"- Prefix: {prefix}\n"
           f"- Rules file: {rules}\n"
           f"- RDF file: {rdf}\n"
+          f"- Validation results folder: {validation_folder}\n"
           f"- Predictions folder: {predictions_folder}\n"
           f"- Constraints folder: {constraints}\n"
           f"- PCA Threshold: {pca_threshold}")
@@ -434,11 +437,12 @@ def initialize(input_config):
           f"- Prefix: {prefix}\n"
           f"- Rules file: {rules}\n"
           f"- RDF file: {rdf}\n"
+          f"- Validation results folder: {validation_folder}\n"
           f"- Predictions folder: {predictions_folder}\n"
           f"- Constraints folder: {constraints}\n"
           f"- PCA Threshold: {pca_threshold}")
 
-    return prefix, rules, rdf, path, predictions_folder, constraints, kg, pca_threshold
+    return prefix, rules, rdf, path, predictions_folder, constraints, validation_folder, kg, pca_threshold
 
 
 if __name__ == '__main__':
@@ -472,7 +476,7 @@ if __name__ == '__main__':
         logger.info(f"Starting symbolic prediction process with config: {input_config}")
 
         #Initializaing from the input.json file
-        prefix, rulesfile, rdf_data, path, predictions_folder, constraints, kg, pca_threshold = initialize(input_config)
+        prefix, rulesfile, rdf_data, path, predictions_folder, constraints, validation_folder, kg, pca_threshold = initialize(input_config)
 
         # Process rules and generate symbolic predictions
         print("\nProcessing rules and generating predictions...")
@@ -481,11 +485,12 @@ if __name__ == '__main__':
 
         # Validate SHACL constraints
         print("\nValidating results...")
-        val_results = travshacl(enriched_kg, constraints, kg)
+        val_results = travshacl(enriched_kg, constraints, validation_folder)
 
         # Normalizing enriched KG (enrichedKG obtained from symbolic predictions)
         print("\nTransforming results...")
-        transform(enriched_kg, kg)
+        shapes_file = os.path.join(constraints, os.path.basename(constraints) + '.ttl')
+        transform(enriched_kg, kg, shapes_file, validation_folder)
 
         # Print execution time
         end_time = time.time()

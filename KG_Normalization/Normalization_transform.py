@@ -244,7 +244,8 @@ def transform_triple(triple: Tuple[URIRef, URIRef, URIRef],
     return None
 
 
-def transform(enriched_kg: Graph, kg_name: str = None) -> Graph:
+def transform(enriched_kg: Graph, kg_name: str = None, shapes_file: str = None,
+              validation_dir: str = None) -> Graph:
     """
     Transforms a given enriched knowledge graph (KG) based on a series of predicate-object transformations,
     SHACL constraints, and violation reports. The transformation involves modifying triples in the graph as
@@ -253,6 +254,9 @@ def transform(enriched_kg: Graph, kg_name: str = None) -> Graph:
     Args:
         enriched_kg: The input RDF graph to be transformed.
         kg_name: The name associated with the KG. If not provided, it is derived from the current directory.
+        shapes_file: Path to the SHACL shapes file. Defaults to Constraints/<kg_name>/<kg_name>.ttl.
+        validation_dir: Directory holding the validation results (validationReport.ttl).
+            Defaults to Validation_results/<kg_name>.
 
     Returns:
         Graph: The final transformed RDF graph after applying all transformations.
@@ -281,9 +285,9 @@ def transform(enriched_kg: Graph, kg_name: str = None) -> Graph:
         enriched_kg_transform.serialize(destination=initial_transform_file, format='nt')
         print(f"Saved initial transformed KG to {initial_transform_file}")
 
-        constraints_dir = f"Constraints/{kg_name}/result_{kg_name}"
-        shapes_file = f"Constraints/{kg_name}/{kg_name}.ttl"
-        violation_report = f"{constraints_dir}/validationReport.ttl"
+        shapes_file = shapes_file or f"Constraints/{kg_name}/{kg_name}.ttl"
+        validation_dir = validation_dir or f"Validation_results/{kg_name}"
+        violation_report = f"{validation_dir}/validationReport.ttl"
         output_file = f"{output_dir}/TransformedKG_{kg_name}.nt"
 
         print("Processing SHACL constraints...")

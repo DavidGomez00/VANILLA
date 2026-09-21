@@ -1,6 +1,7 @@
+import os
 from TravSHACL import parse_heuristics, GraphTraversal, ShapeSchema
 
-def travshacl(enrichedKG, constraints, kg):
+def travshacl(enrichedKG, constraints, output_dir):
     """
     Validates a SHACL shape schema against a given enriched knowledge graph with constraints
     and prioritization heuristics.
@@ -12,7 +13,8 @@ def travshacl(enrichedKG, constraints, kg):
     Args:
         enrichedKG: Endpoint of the enriched knowledge graph to validate against.
         constraints: Path to the directory containing SHACL constraint shapes.
-        kg: Identifier of the knowledge graph; used in constructing the results path.
+        output_dir: Directory where the validation results are written. It must be outside
+            `constraints`, since TravSHACL parses every .ttl file found below the constraints directory.
 
     Returns:
         Validation results as provided by the `ShapeSchema.validate` method.
@@ -21,7 +23,7 @@ def travshacl(enrichedKG, constraints, kg):
     prio_degree = 'IN'  # shapes with a higher in-degree are prioritized, alternative value 'OUT'
     prio_number = 'BIG'  # shapes with many constraints are evaluated first, alternative value 'SMALL'
 
-    output_path = constraints + '/result_' +kg
+    os.makedirs(output_dir, exist_ok=True)
 
     shape_schema = ShapeSchema(
         schema_dir=constraints,
@@ -33,12 +35,12 @@ def travshacl(enrichedKG, constraints, kg):
         use_selective_queries=True,
         max_split_size=256,
         # output_dir='./Constraints/result/',  # directory where the output files will be stored
-        output_dir= output_path,
+        output_dir=output_dir,
         order_by_in_queries=False,
         # sort the results of SPARQL queries in order to ensure the same order across several runs
         save_outputs=True  # save outputs to output_dir, alternative value: False
     )
 
     result = shape_schema.validate()  # validate the SHACL shape schema
-    print(f"Constraint Validation Result saved to {output_path}")
+    print(f"Constraint Validation Result saved to {output_dir}")
     return result

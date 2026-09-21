@@ -1,0 +1,11 @@
+# Local configurations
+.data
+.python-version
+.claude
+.idea
+
+# Python bytecode
+*/__pycache__/*
+*.pyc
+*.pyo
+*.pyd

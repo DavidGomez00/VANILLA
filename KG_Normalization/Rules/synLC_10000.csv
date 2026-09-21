@@ -1,4 +1,4 @@
-Body,Head,Head_Coverage,Standard_Confidence,PCA_Confidence,Support,Body_Size,Pca_Body_Size,Functional_variable
+body,head,head_coverage,std_confidence,pca_confidence,positive_examples,body_size,pca_body_size,functional_variable
 ?a  smokingHabit  ?d  ?a  stage  ?d   ,?a  smokingHabit  Unknown,0.0159,1,1,159,159,159,?a
 ?a  biomarker  ?d  ?a  smokingHabit  ?d   ,?a  smokingHabit  Unknown,0.0792,1,1,792,792,792,?a
 ?a  biomarker  ?d  ?a  stage  ?d   ,?a  biomarker  Unknown,0.016802,1,1,205,205,205,?a

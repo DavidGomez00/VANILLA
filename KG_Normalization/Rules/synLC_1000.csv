@@ -1,4 +1,4 @@
-Body,Head,Head_Coverage,Standard_Confidence,PCA_Confidence,Support,Body Size,Pca Body Size,Functional_variable
+body,head,head_coverage,std_confidence,pca_confidence,positive_examples,body_size,pca_body_size,functional_variable
 ?a  drug  Carboplatin  ?a  smokingHabit  NonSmoker   ,?a  ageCategory  old,0.051,0.653846,0.653846,51,78,78,?a
 ?a  comorbidity  Cardiopathy  ?a  smokingHabit  CurrentSmoker   ,?a  hasRelapse  No,0.064,0.653061,0.653061,64,98,98,?a
 ?a  biomarker  ROS1_Positive  ?a  drug  Nivolumab   ,?a  sex  female,0.071,0.63964,0.63964,71,111,111,?a

@@ -1,4 +1,4 @@
-Body,Head,Head Coverage,Standard_Confidence,Pca_Confidence,Support,Body_Size,Pca_Body_Size,Functional_variable
+body,head,head_coverage,std_confidence,pca_confidence,positive_examples,body_size,pca_body_size,functional_variable
 ?b  hasChild  ?a  ?b  isMarriedTo  ?a   ,?a  isMarriedTo  ?b,0.016337,1,1,62,62,62,?a
 ?a  hasChild  ?b  ?b  isMarriedTo  ?a   ,?a  isMarriedTo  ?b,0.016337,1,1,62,62,62,?a
 ?b  dealsWith  ?a  ?b  hasNeighbor  ?a   ,?a  hasNeighbor  ?b,0.301075,1,1,168,168,168,?b

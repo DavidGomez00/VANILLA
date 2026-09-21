@@ -1,4 +1,4 @@
-Body,Head,Head_Coverage,Standard_Confidence,Pca_Confidence,Support,Body Size,Pca Body Size,Functional_variable
+body,head,head_coverage,std_confidence,pca_confidence,positive_examples,body_size,pca_body_size,functional_variable
 ?b  equal  ?a   ,?a  equal  ?b,0.804487,0.804487,0.8,7818,9718,7818,?a
 ?b  sameAs  ?a   ,?a  sameAs  ?b,0.796573,0.796573,0.8,7624,9571,7624,?a
 ?b  equivalent  ?a   ,?a  equivalent  ?b,0.796873,0.796873,0.8,7748,9723,7748,?a

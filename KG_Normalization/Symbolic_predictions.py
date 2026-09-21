@@ -28,7 +28,7 @@ def load_graph(file):
 
 def detect_rule_type(rules_df):
     """
-    Detect if rules contain constants by analyzing the Body and Head columns
+    Detect if rules contain constants by analyzing the body and head columns
     Returns: 'constant' or 'variable'
     """
     # Sample a few rules to check for patterns
@@ -39,8 +39,8 @@ def detect_rule_type(rules_df):
     # and is not a predicate (not in the middle of a triple)
     has_constants = False
     for _, row in sample_rules.iterrows():
-        body_parts = row['Body'].split()
-        head_parts = row['Head'].split()
+        body_parts = row['body'].split()
+        head_parts = row['head'].split()
 
         # Check every third word in body (object position in triples)
         for i in range(2, len(body_parts), 3):
@@ -64,9 +64,9 @@ def rdflib_query_with_constants(rule_df, prefix_query, rdf_data, head_val, predi
     formats the results.
 
     Args:
-        rule_df (pd.DataFrame): DataFrame containing rules with columns 'Functional_variable',
-            'Body', and 'Head'. The 'Functional_variable' column defines the context of
-            the query, while the 'Body' and 'Head' columns represent SPARQL components.
+        rule_df (pd.DataFrame): DataFrame containing rules with columns 'functional_variable',
+            'body', and 'head'. The 'functional_variable' column defines the context of
+            the query, while the 'body' and 'head' columns represent SPARQL components.
         prefix_query (str): Namespace prefix used in SPARQL query generation.
         rdf_data (str): Path to the RDF data file to be queried.
         head_val (str): Predicate value to associate with the query results.
@@ -84,9 +84,9 @@ def rdflib_query_with_constants(rule_df, prefix_query, rdf_data, head_val, predi
     all_results = []
 
     for _, rule in rule_df.iterrows():
-        fun_var = rule['Functional_variable']
-        body = rule['Body']
-        head = rule['Head']
+        fun_var = rule['functional_variable']
+        body = rule['body']
+        head = rule['head']
 
         # Process body and head
         words = body.split()
@@ -155,8 +155,8 @@ def rdflib_query_without_constants(rule_df, prefix_query, rdf_data, head_val, pr
     by dynamically modifying query elements based on rules, prefixes, and functional variables.
 
     Args:
-        rule_df (pd.DataFrame): A DataFrame containing rules with columns 'Functional_variable', 'Body',
-            and 'Head' that define SPARQL query components.
+        rule_df (pd.DataFrame): A DataFrame containing rules with columns 'functional_variable', 'body',
+            and 'head' that define SPARQL query components.
         prefix_query (str): A string prefix to be used for namespace in SPARQL queries.
         rdf_data (str): Path to the RDF data file to query against.
         head_val (str): Value used as the 'predicate' in the results to describe the relation.
@@ -170,9 +170,9 @@ def rdflib_query_without_constants(rule_df, prefix_query, rdf_data, head_val, pr
     all_results = []
 
     for _, rule in rule_df.iterrows():
-        fun_var = rule['Functional_variable']
-        body = rule['Body']
-        head = rule['Head']
+        fun_var = rule['functional_variable']
+        body = rule['body']
+        head = rule['head']
 
         # Process body and head
         words = body.split()
@@ -263,25 +263,23 @@ def process_rules(file, prefix, rdf_data, predictions_folder, kg, pca_threshold)
     print(f"Reading rules from {file}")
     rules = pd.read_csv(file)
 
-    # Verify required columns exist
-    required_columns = ['Body', 'Head', 'PCA_Confidence', 'Pca_Confidence', 'Pca Confidence',
-                        'Standard_Confidence', 'Std_Confidence', 'Standard Confidence']
-    found_columns = [col for col in required_columns if col in rules.columns]
-    if not any(col in rules.columns for col in ['PCA_Confidence', 'Pca_Confidence', 'Pca Confidence']):
-        raise ValueError("Neither 'PCA_Confidence' nor 'Pca_Confidence' column found in rules file")
-    if not any(col in rules.columns for col in ['Standard_Confidence', 'Std_Confidence', 'Standard Confidence']):
-        raise ValueError("Neither 'Standard_Confidence' nor 'Std_Confidence' column found in rules file")
+    # Verify required columns exist (lowercase names)
+    required_columns = ['body', 'head', 'pca_confidence', 'std_confidence', 'functional_variable']
+    missing_columns = [col for col in required_columns if col not in rules.columns]
+    if missing_columns:
+        raise ValueError(f"Missing required column(s) in rules file: {', '.join(missing_columns)}. "
+                         f"Column names must be lowercase, found: {list(rules.columns)}")
 
-    print(f"Found columns: {found_columns}")
+    print(f"Found columns: {required_columns}")
     rule_type = detect_rule_type(rules)
     print(f"Detected rule type: {rule_type}")
 
-    # Identify confidence columns
-    confidence_col = 'Standard_Confidence' if 'Standard_Confidence' in rules.columns else 'Std_Confidence'
-    pca_col = 'PCA_Confidence' if 'PCA_Confidence' in rules.columns else 'Pca_Confidence'
+    # Confidence columns
+    confidence_col = 'std_confidence'
+    pca_col = 'pca_confidence'
 
     # First filter rules that meet PCA confidence threshold
-    q_filter = f"""SELECT DISTINCT Head, COUNT(*) AS num FROM rules WHERE {pca_col} < 1 AND {pca_col} > {pca_threshold} GROUP BY Head ORDER BY num DESC"""
+    q_filter = f"""SELECT DISTINCT head, COUNT(*) AS num FROM rules WHERE {pca_col} < 1 AND {pca_col} > {pca_threshold} GROUP BY head ORDER BY num DESC"""
     head_df = sqldf(q_filter, locals())
 
     if head_df.empty:
@@ -297,7 +295,7 @@ def process_rules(file, prefix, rdf_data, predictions_folder, kg, pca_threshold)
     g.parse(rdf_data, format='nt')
 
     for _, val in head_df.iterrows():
-        head = val['Head']
+        head = val['head']
         if head and isinstance(head, str):  # Check if head is valid
             head_val = head.split()[1]
             print(f"\nProcessing rules for predicate: {head_val}")
@@ -305,7 +303,7 @@ def process_rules(file, prefix, rdf_data, predictions_folder, kg, pca_threshold)
             # Select rules for current head predicate with PCA confidence threshold
             q2 = f"""
                 SELECT * FROM rules 
-                WHERE Head LIKE '%{head}%' 
+                WHERE head LIKE '%{head}%' 
                 AND {pca_col} < 1 AND {pca_col} > {pca_threshold} 
                 ORDER BY {confidence_col} DESC
             """
@@ -419,27 +417,27 @@ def initialize(input_config):
     path = os.path.join('KG', input_data['KG'])
     rules = os.path.join('Rules', input_data['rules_file'])
     rdf = os.path.join(path, input_data['rdf_file'])
-    validation_folder = os.path.join('Validation_results', input_data['KG'])
     predictions_folder = os.path.join('Predictions', input_data['KG'] + "_predictions")
     constraints = os.path.join('Constraints',input_data['constraints_folder'])
+    validation_folder = os.path.join('Validation_results', input_data['KG'])
     pca_threshold = input_data['pca_threshold']
 
     print(f"Configuration loaded:\n"
           f"- Prefix: {prefix}\n"
           f"- Rules file: {rules}\n"
           f"- RDF file: {rdf}\n"
-          f"- Validation results folder: {validation_folder}\n"
           f"- Predictions folder: {predictions_folder}\n"
           f"- Constraints folder: {constraints}\n"
+          f"- Validation results folder: {validation_folder}\n"
           f"- PCA Threshold: {pca_threshold}")
 
     logger.info(f"Configuration loaded:\n "
           f"- Prefix: {prefix}\n"
           f"- Rules file: {rules}\n"
           f"- RDF file: {rdf}\n"
-          f"- Validation results folder: {validation_folder}\n"
           f"- Predictions folder: {predictions_folder}\n"
           f"- Constraints folder: {constraints}\n"
+          f"- Validation results folder: {validation_folder}\n"
           f"- PCA Threshold: {pca_threshold}")
 
     return prefix, rules, rdf, path, predictions_folder, constraints, validation_folder, kg, pca_threshold

@@ -1,4 +1,4 @@
-Body,Head,Head Coverage,Std_Confidence,PCA_Confidence,Positive Examples,Body size,PCA Body size,Functional_variable
+body,head,head_coverage,std_confidence,pca_confidence,positive_examples,body_size,pca_body_size,functional_variable
 ?a  sourceMountain  ?b   ,?a  sourcePlace  ?b,1,1,1,179,179,179,?a
 ?a  distributingLabel  ?b   ,?a  distributingCompany  ?b,1,1,1,946,946,946,?a
 ?b  operator  ?a   ,?a  operator  ?b,0.01754386,0.01754386,1,4,228,4,?a

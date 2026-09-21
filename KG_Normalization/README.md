@@ -32,10 +32,12 @@ python Symbolic_predictions.py
 This will:
 - Generate inferred predictions using symbolic rules.
 - Validate them against SHACL constraints.
-- Output:
-  - Transformed KGs
-  - Constraint validation reports in `Validation_results/<KG>/` (kept outside `Constraints/`, which must only contain SHACL shape files)
-  - Predictions and the enriched KG in `Output/<KG>/predictions/` and `Output/<KG>/enriched/`
+- Normalize the enriched KG, rewriting the triples that violate a constraint.
+- Write everything to `Output/<KG>/` (kept outside `Constraints/`, which must only contain SHACL shape files):
+  - `predictions/`: the predictions of each rule head, one TSV per predicate
+  - `enriched/`: the input KG plus the predictions
+  - `validation/`: the SHACL validation report and statistics
+  - `transformed/`: the expanded and the normalized KG (`<KG>_expanded.nt`, `<KG>_normalized.nt`)
 
 ## 🧠 Graphical Summary
 

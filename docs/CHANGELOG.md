@@ -92,6 +92,21 @@ Changes made to the code and documentation after the benchmark release. Dates ar
     (`Head Coverage`/`Head_Coverage` to `head_coverage`, `Support` to `positive_examples`,
     `Body Size`/`Body_Size` to `body_size`, `Pca Body Size`/`Pca_Body_Size` to `pca_body_size`). Only the
     header line changed.
+- **Documentation aligned with the code.** No code changed in this step. Corrected:
+  - `03-configuration.md`: `input.json` is tracked in the repository; it is not in `.gitignore`. The `KG` key
+    builds every folder under `Output/<KG>/`.
+  - `10-code-reference.md`: `transform` has three added parameters (`shapes_file`, `validation_dir`,
+    `output_dir`), not two.
+  - `11-troubleshooting.md`: the triple count of the expanded and normalized graphs is always equal, since
+    triples are renamed and never added or removed; compare contents to see what was rewritten.
+  - `01-overview.md`, `08-normalizing-your-own-graph.md`, root `README.md`: `KG/FrenchRoyalty/` now holds the
+    simplified variant (8,633 triples, 8 relations). The worked example is replaced by the figures of a run on
+    the bundled files (22 rules, 1,252 predictions, 280 violations, 9,222 triples). The benchmark statistics
+    still describe the original graph and are marked as such.
+  - `KG_Normalization/README.md`: the output list pointed to `Validation_results/`; it now describes
+    `Output/<KG>/`.
+  - Root `README.md`: the repository tree listed files that do not exist (`symbolic_predictions_updated.py`,
+    `transform_new.py`, `validation.py`); it now matches the repository.
 
 ### Migration notes
 

@@ -1,8 +1,8 @@
 # 03 - Configuration reference
 
 Both parts of VANILLA are configured with JSON files. The normalization pipeline reads
-`KG_Normalization/input.json`. It is listed in `.gitignore` so local run settings are not tracked by
-accident.
+`KG_Normalization/input.json`, which is tracked in the repository and holds the settings of the bundled
+FrenchRoyalty run. Edit it (or keep your own copy) to run another KG.
 
 ## KG_Normalization/input.json
 
@@ -20,7 +20,7 @@ accident.
 
 | Key | Type | Meaning | Used to build |
 |---|---|---|---|
-| `KG` | string | Name of the run. Names the input folder and all output folders/files. | `KG/<KG>/`, `Output/<KG>/validation/`, `Output/<KG>/transformed/` |
+| `KG` | string | Name of the run. Names the input folder and all output folders/files. | `KG/<KG>/` and every folder under `Output/<KG>/` |
 | `prefix` | string | Namespace prepended to bare names when reading rules, and stripped from results. Must end in `/` or `#`. | SPARQL `PREFIX ex:` |
 | `rules_file` | string | File name of the rules CSV. It sits next to the graph, in the folder of the KG. | `KG/<KG>/<rules_file>` |
 | `rdf_file` | string | File name of the N-Triples graph. | `KG/<KG>/<rdf_file>` |

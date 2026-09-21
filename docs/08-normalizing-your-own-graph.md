@@ -146,31 +146,29 @@ Interpretation:
 - If the diff is empty and violations were found, your shapes probably use `FILTER NOT EXISTS`, which
   validates but does not rewrite (see [06](06-shacl-constraints.md#what-gets-rewritten)).
 
-## Worked example: what a run on the French Royalty variant produced
+## Worked example: a run on the bundled French Royalty graph
 
-A run of the pipeline on the 8,633-triple variant, with the benchmark's rules (85 rules above the
-threshold) and the bundled shape, gave:
+A run of the pipeline on the bundled `KG/FrenchRoyalty/` graph (8,633 triples), with its bundled rules
+(`french_royalty.csv`, 22 rules above the threshold) and the bundled shape, gave:
 
 | Metric | Value |
 |---|---|
-| Rules used | 85 |
-| Predicted triples | 1,067 |
-| Total triples after enrichment | 9,221 |
+| Rules used | 22 |
+| Predictions generated | 1,252 (589 new triples once duplicates are removed) |
+| Total triples after enrichment | 9,222 |
 | Targets (nodes of type Person) | 2,211 |
 | Valid / invalid targets | 1,931 / 280 |
 | Violations processed | 280 |
-| Final triples | 9,221 (unchanged; triples renamed, not added or removed) |
+| Final triples | 9,222 (unchanged; triples renamed, not added or removed) |
 
-Predictions went to `parent`, `father`, `child`, `mother` and `spouse`. No predictions were made for
-`successor`, `predecessor`, `hasSpouse` or `gender`. The graph already contains the `successor`/`predecessor`
-inverses in full, and `hasSpouse`/`gender` do not exist in this variant.
+Predictions went to `father` (328), `parent` (344), `child` (142), `spouse` (69) and `mother` (369). No rules
+above the threshold have another head predicate, so `successor` and `predecessor` received no predictions.
 
-That run used rules mined on the benchmark version of the graph, not on this variant. Results with rules
-mined on your own graph will differ.
+Rules mined on your own graph will give different numbers.
 
 ## Benchmark graph vs. simplified variant
 
-| | Benchmark (`KG/FrenchRoyalty`) | Simplified variant |
+| | Original benchmark (replaced) | Simplified variant (bundled in `KG/FrenchRoyalty`) |
 |---|---|---|
 | Triples | 10,652 | 8,633 |
 | Entities | 2,656 | 2,212 |

@@ -54,7 +54,11 @@ For instance `http://FrenchRoaylty.org/` (graph) vs `http://FrenchRoyalty.org/` 
 
 ## Violations are found but the normalized graph equals the initial one
 
-**Cause:** the shapes use `FILTER NOT EXISTS`. Such shapes are validated but the rewrite for them is the
+The triple **count** of `<KG>_expanded.nt` and `<KG>_normalized.nt` is always the same, because the rewrite
+renames triples and never adds or removes any. Compare the contents (`sort` both files and `diff` them), not
+the counts.
+
+**Cause:** if the contents are identical too, the shapes use `FILTER NOT EXISTS`. Such shapes are validated but the rewrite for them is the
 identity. The run prints `Applying N transformations...` regardless.
 **Fix:** express the anomaly with `FILTER EXISTS`, see [06](06-shacl-constraints.md#what-gets-rewritten).
 

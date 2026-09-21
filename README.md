@@ -14,37 +14,23 @@ Full documentation (installation, configuration, data formats, pipeline internal
 
 ```
 .
-├── KG_Normalization/                         # KG Normalization
-│   ├── KG/                         # Benchmark knowledge graphs and their symbolic rules
-│   ├── French_Royalty/
-│   ├── SGKG/
-│   ├── SynthLC-1000/
-│   ├── SynthLC-10000/
-│   ├── YAGO3-10/
-│   └── DB100K/
-│
-|   ├── Constraints/                # SHACL constraints
-│   ├── French_Royalty/
-│   ├── SGKG/
-│   ├── SynthLC-1000/
-│   ├── SynthLC-10000/
-│   ├── YAGO3-10/
-│   └── DB100K/
-│
-│   ├── Output/<KG>/                # Output: predictions, enriched, validation, transformed
-│   ├── LICENSE.txt
-│   ├── README.md
-│   ├── input.json
-│   ├── symbolic_predictions_updated.py
-│   ├── transform_new.py
-│   └── validation.py
-│   ├── Validated_KG_Completion/
-│
 ├── KG_Normalization/
+│   ├── KG/<KG>/                    # Benchmark knowledge graph (.nt) and its symbolic rules (.csv)
+│   ├── Constraints/<KG>/           # SHACL constraints
+│   ├── Output/<KG>/                # Output: predictions, enriched, validation, transformed
+│   ├── input.json                  # Configuration of a run
+│   ├── Symbolic_predictions.py     # Entry point
+│   ├── Normalization_transform.py
+│   ├── Validation.py
+│   └── tsv_to_nt.py
+├── Validated_KG_Completion/
 │   ├── input_KGC.json
 │   ├── KGC.py
 │   ├── input_KGC_hpo.json
-│   ├── KGC_hpo.py
+│   └── KGC_hpo.py
+├── docs/
+├── LICENSE.txt
+└── requirements.txt
 ```
 ---
 ## 📊 Benchmark Statistics
@@ -66,6 +52,9 @@ Full documentation (installation, configuration, data formats, pipeline internal
 |             | SGKG              | 5                | 156,965    | 12,150       |
 | **Small**   | French Royalty    | 2                | 1,922      | 298          |
 |             | SynthLC-1000      | 25               | 22,335     | 2,665        |
+
+> The French Royalty rows describe the original benchmark graph. `KG_Normalization/KG/FrenchRoyalty/` now bundles a simplified variant (8,633 triples, 8 relations); see [docs/01-overview.md](docs/01-overview.md).
+
 ---
 ## ⚙️ Setup Instructions
 

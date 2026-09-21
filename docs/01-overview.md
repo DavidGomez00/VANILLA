@@ -84,10 +84,11 @@ the nodes that *violate* a domain rule.
 
 Inputs and earlier results for these benchmarks are stored under `KG_Normalization/KG/` (graph and rules) and `KG_Normalization/Constraints/`.
 
-> **Note on the French Royalty variants.** The benchmark graph in `KG/FrenchRoyalty/` has 12 relations
-> (including `hasSpouse`, `gender`, `name`, `marriedTo`). A simplified variant of the same graph with 8
-> relations (`child`, `father`, `mother`, `parent`, `predecessor`, `spouse`, `successor`, `type`, 8,633
-> triples) is also in circulation. Rules and shapes written for one variant do not fully apply to the other.
+> **Note on the French Royalty variants.** The statistics above describe the original benchmark graph, with
+> 12 relations (including `hasSpouse`, `gender`, `name`, `marriedTo`). The graph now bundled in
+> `KG/FrenchRoyalty/` is a simplified variant with 8 relations (`child`, `father`, `mother`, `parent`,
+> `predecessor`, `spouse`, `successor`, `type`) and 8,633 triples; it replaced the original in commit
+> `07d7eac`. Rules and shapes written for one variant do not fully apply to the other.
 > See [08](08-normalizing-your-own-graph.md).
 
 ## Technology

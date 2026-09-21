@@ -131,9 +131,10 @@ Runs stage 3.
 | `validation_dir` | `Output/<kg_name>/validation` | Folder containing `validationReport.ttl` (**added**) |
 | `output_dir` | `Output/<kg_name>/transformed` | Folder receiving the transformed KGs (**added**) |
 
-Writes `Output/<kg_name>/transformed/<kg_name>_expanded.nt` and
-`Output/<kg_name>/transformed/<kg_name>_normalized.nt`. The two new parameters replace hard-coded paths of the
-form `Constraints/<kg_name>/...`, which ignored `constraints_folder`.
+Writes `<output_dir>/<kg_name>_expanded.nt` (after predicate-object expansion) and
+`<output_dir>/<kg_name>_normalized.nt` (final graph). The three added parameters replace hard-coded paths
+(`Constraints/<kg_name>/...` for the shapes, which ignored `constraints_folder`, and the validation and output
+folders).
 
 ## tsv_to_nt.py
 

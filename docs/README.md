@@ -17,7 +17,7 @@ and how the code works internally.
 | Prepare a KG, a rules file and SHACL shapes | [04 - Data formats](04-data-formats.md) |
 | Understand each stage of the normalization pipeline | [05 - The normalization pipeline](05-normalization-pipeline.md) |
 | Write or fix SHACL constraints and understand the constraints folder | [06 - SHACL constraints](06-shacl-constraints.md) |
-| Convert a `.tsv` triples file to N-Triples | [07 - tsv_to_nt.py](07-tsv-to-nt.md) |
+| Convert a `.tsv` triples file to N-Triples, or back | [07 - tsv_to_nt.py and nt_to_tsv.py](07-tsv-to-nt.md) |
 | Normalize your own graph, start to finish | [08 - Normalizing your own graph](08-normalizing-your-own-graph.md) |
 | Train link-prediction models on the normalized KG | [09 - Validated KG completion](09-validated-kg-completion.md) |
 | Look up a function or its parameters | [10 - Code reference](10-code-reference.md) |
@@ -41,6 +41,7 @@ VANILLA/
 │   ├── Validation.py               SHACL validation with TravSHACL
 │   ├── Normalization_transform.py  Rewrites triples that violate constraints
 │   ├── tsv_to_nt.py                Utility: TSV triples -> N-Triples
+│   ├── nt_to_tsv.py                Utility: N-Triples -> TSV triples
 │   ├── KG/<KG>/                    Input graph (.nt) and rules (.csv)
 │   ├── Constraints/<name>/         Input SHACL shapes (.ttl only)
 │   └── Output/<KG>/                Output: predictions/, enriched/, validation/ and transformed/

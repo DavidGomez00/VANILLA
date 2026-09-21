@@ -8,6 +8,8 @@ Changes made to the code and documentation after the benchmark release. Dates ar
 
 - **`KG_Normalization/tsv_to_nt.py`**: converts a tab-separated triples file into N-Triples.
   Command line and importable `convert()` function. See [07](07-tsv-to-nt.md).
+- **`KG_Normalization/nt_to_tsv.py`**: converts an N-Triples file into a tab-separated triples file, the
+  reverse of `tsv_to_nt.py`. See [07](07-tsv-to-nt.md).
 - **`docs/`**: this documentation.
 
 ### Changed

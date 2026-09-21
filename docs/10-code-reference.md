@@ -145,3 +145,14 @@ Returns `<term>` if it already starts with `http://` or `https://`, otherwise `<
 ### `convert(tsv_path, nt_path, prefix, type_predicate="type") -> (int, int)`
 
 Converts a TSV file to N-Triples. Returns `(written, skipped)`. See [07](07-tsv-to-nt.md).
+
+## nt_to_tsv.py
+
+### `from_term(term, prefix) -> str`
+
+Turns one N-Triples term into a bare TSV value: strips `prefix` from IRIs and percent-decodes them, keeps
+blank nodes, and reduces literals to their lexical form.
+
+### `convert(nt_path, tsv_path, prefix="", type_predicate="type") -> (int, int)`
+
+Converts an N-Triples file to TSV. Returns `(written, skipped)`. See [07](07-tsv-to-nt.md).

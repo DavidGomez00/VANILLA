@@ -43,7 +43,7 @@ Earlier versions of the script used `pandasql`, which fails with `pandas` 2.2 or
 
 ## Extra packages for part 2
 
-`Validated_KG_Completion/KGC.py` imports `torch` and `matplotlib`, which are not in `requirements.txt`.
+`Completion/KGC.py` imports `torch` and `matplotlib`, which are not in `requirements.txt`.
 `pykeen` normally installs `torch`, but `matplotlib` may need to be installed separately:
 
 ```bash
@@ -52,7 +52,7 @@ pip install matplotlib
 
 ## Checking the installation
 
-From `KG_Normalization/`:
+From `Normalization/`:
 
 ```bash
 python -c "import rdflib, pandas, TravSHACL; print('ok')"

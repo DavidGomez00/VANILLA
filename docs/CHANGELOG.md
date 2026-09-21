@@ -14,6 +14,10 @@ Changes made to the code and documentation after the benchmark release. Dates ar
 
 ### Changed
 
+- **Folders renamed:** `KG_Normalization/` is now `Normalization/` and `Validated_KG_Completion/` is now
+  `Completion/`. The `.gitignore` entry for the logs folder and all documentation paths were updated. Entries
+  below this one still use the old folder names. Run the scripts from the new folders.
+
 - **`pandasql` removed from `Symbolic_predictions.py`.** The two `sqldf` queries in `process_rules` are now
   `pandas` filtering and sorting with the same result. Reason: `pandasql` fails with `pandas` 2.2 or newer
   and `SQLAlchemy` 1.4 (`'Connection' object has no attribute 'cursor'`). `pandasql` is also removed from

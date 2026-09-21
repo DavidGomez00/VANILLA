@@ -20,8 +20,8 @@ VANILLA adds symbolic knowledge in two places:
 
 | Part | Folder | Entry point | Input | Output |
 |---|---|---|---|---|
-| KG Normalization | `KG_Normalization/` | `Symbolic_predictions.py` | KG (`.nt`), rules (`.csv`), SHACL shapes (`.ttl`) | Enriched KG, validation reports, normalized KG |
-| Validated KG Completion | `Validated_KG_Completion/` | `KGC.py`, `KGC_hpo.py` | Normalized KG as a TSV file | Trained models, splits, metrics, loss plots |
+| KG Normalization | `Normalization/` | `Symbolic_predictions.py` | KG (`.nt`), rules (`.csv`), SHACL shapes (`.ttl`) | Enriched KG, validation reports, normalized KG |
+| Validated KG Completion | `Completion/` | `KGC.py`, `KGC_hpo.py` | Normalized KG as a TSV file | Trained models, splits, metrics, loss plots |
 
 The rest of this documentation concentrates on part 1, because that is what you configure and run when you
 normalize a graph. Part 2 is described in [09](09-validated-kg-completion.md).
@@ -82,7 +82,7 @@ the nodes that *violate* a domain rule.
 | Small | French Royalty | 10,526 | 2,601 | 12 | 2 | 1,922 | 298 |
 | Small | SynthLC-1000 | 10,668 | 1,000 | 9 | 25 | 22,335 | 2,665 |
 
-Inputs and earlier results for these benchmarks are stored under `KG_Normalization/KG/` (graph and rules) and `KG_Normalization/Constraints/`.
+Inputs and earlier results for these benchmarks are stored under `Normalization/KG/` (graph and rules) and `Normalization/Constraints/`.
 
 > **Note on the French Royalty variants.** The statistics above describe the original benchmark graph, with
 > 12 relations (including `hasSpouse`, `gender`, `name`, `marriedTo`). The graph now bundled in

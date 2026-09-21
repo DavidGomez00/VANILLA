@@ -12,4 +12,4 @@
 *.pyd
 
 # Runs
-KG_Normalization/logs
+Normalization/logs

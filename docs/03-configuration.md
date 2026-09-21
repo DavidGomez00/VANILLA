@@ -1,10 +1,10 @@
 # 03 - Configuration reference
 
 Both parts of VANILLA are configured with JSON files. The normalization pipeline reads
-`KG_Normalization/input.json`, which is tracked in the repository and holds the settings of the bundled
+`Normalization/input.json`, which is tracked in the repository and holds the settings of the bundled
 FrenchRoyalty run. Edit it (or keep your own copy) to run another KG.
 
-## KG_Normalization/input.json
+## Normalization/input.json
 
 ```json
 {
@@ -31,7 +31,7 @@ FrenchRoyalty run. Edit it (or keep your own copy) to run another KG.
 ### Derived paths
 
 `initialize()` in `Symbolic_predictions.py` turns the configuration into these paths (relative to
-`KG_Normalization/`):
+`Normalization/`):
 
 | Purpose | Path |
 |---|---|
@@ -75,7 +75,7 @@ them as rules that predict nothing new. If every rule in your file has confidenc
 and the pipeline prints `No rules found meeting the PCA confidence threshold criteria.` Mine rules with
 confidence below 1, or lower the threshold.
 
-## Validated_KG_Completion/input_KGC.json
+## Completion/input_KGC.json
 
 Read by `KGC.py` (the file name is fixed in the code as `input_KGC.json`).
 
@@ -93,7 +93,7 @@ Read by `KGC.py` (the file name is fixed in the code as `input_KGC.json`).
 | `save_splits` | true | Write `train` and `test` files to `results_path`. |
 | `log_level` | `INFO` | Python logging level. |
 
-## Validated_KG_Completion/input_KGC_hpo.json
+## Completion/input_KGC_hpo.json
 
 Read by `KGC_hpo.py` (fixed file name `input_KGC_hpo.json`).
 

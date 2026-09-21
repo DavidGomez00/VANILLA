@@ -3,7 +3,7 @@
 This page walks through what happens when you run:
 
 ```bash
-cd KG_Normalization
+cd Normalization
 python Symbolic_predictions.py
 ```
 
@@ -202,7 +202,7 @@ triples, initially transformed triples, final transformed triples, and violation
 
 ## Run summary
 
-For each run you get, under `KG_Normalization/`:
+For each run you get, under `Normalization/`:
 
 ```
 Output/<KG>/predictions/     <predicate>.tsv, one per predicted predicate

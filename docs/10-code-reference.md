@@ -1,6 +1,6 @@
 # 10 - Code reference
 
-Reference for the functions of part 1. Paths are relative to `KG_Normalization/`. Signatures reflect the
+Reference for the functions of part 1. Paths are relative to `Normalization/`. Signatures reflect the
 current code, including the changes listed in the [CHANGELOG](CHANGELOG.md).
 
 ## Symbolic_predictions.py

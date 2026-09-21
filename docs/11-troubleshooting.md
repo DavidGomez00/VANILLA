@@ -101,4 +101,4 @@ smaller graph while developing.
 
 ## Part 2: `Configuration file input_KGC.json not found`
 
-`KGC.py` reads `input_KGC.json` and `KGC_hpo.py` reads `input_KGC_hpo.json`, both relative to the current directory. Run the scripts from inside `Validated_KG_Completion/`.
+`KGC.py` reads `input_KGC.json` and `KGC_hpo.py` reads `input_KGC_hpo.json`, both relative to the current directory. Run the scripts from inside `Completion/`.

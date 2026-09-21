@@ -7,7 +7,7 @@ step interprets a shape.
 ## Folder layout
 
 ```
-KG_Normalization/
+Normalization/
 ├── Constraints/
 │   └── <constraints_folder>/               ← value of "constraints_folder" in input.json
 │       └── <constraints_folder>.ttl        ← the shapes: the only file you write

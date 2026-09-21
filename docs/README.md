@@ -35,7 +35,7 @@ VANILLA/
 ├── images/                         Figures used by the READMEs
 ├── .data/                          Local, git-ignored working data (your own graphs, rules, ...)
 │
-├── KG_Normalization/               Part 1: symbolic normalization pipeline
+├── Normalization/               Part 1: symbolic normalization pipeline
 │   ├── input.json                  Configuration of one run
 │   ├── Symbolic_predictions.py     Entry point: rules -> predictions -> validation -> normalization
 │   ├── Validation.py               SHACL validation with TravSHACL
@@ -46,13 +46,13 @@ VANILLA/
 │   ├── Constraints/<name>/         Input SHACL shapes (.ttl only)
 │   └── Output/<KG>/                Output: predictions/, enriched/, validation/ and transformed/
 │
-└── Validated_KG_Completion/        Part 2: link prediction on the normalized KG
+└── Completion/        Part 2: link prediction on the normalized KG
     ├── KGC.py, input_KGC.json      Train and evaluate embedding models
     └── KGC_hpo.py, input_KGC_hpo.json   Same, with hyperparameter optimization
 ```
 
-All commands in this documentation are run from inside `KG_Normalization/` (or
-`Validated_KG_Completion/`), because the scripts use relative paths.
+All commands in this documentation are run from inside `Normalization/` (or
+`Completion/`), because the scripts use relative paths.
 
 ## Conventions used in these docs
 

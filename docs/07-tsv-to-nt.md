@@ -1,12 +1,12 @@
 # 07 - tsv_to_nt.py and nt_to_tsv.py
 
-`KG_Normalization/tsv_to_nt.py` converts a file of tab-separated triples into an N-Triples file, which is
+`Normalization/tsv_to_nt.py` converts a file of tab-separated triples into an N-Triples file, which is
 the format the normalization pipeline reads.
 
 ## Usage
 
 ```bash
-cd KG_Normalization
+cd Normalization
 
 python tsv_to_nt.py <input.tsv> <output.nt> --prefix <namespace> [--type-predicate NAME]
 ```
@@ -87,14 +87,14 @@ For the French Royalty variant, the count matches the number of lines of the TSV
 
 # nt_to_tsv.py
 
-`KG_Normalization/nt_to_tsv.py` does the reverse: it converts an N-Triples file into a file of tab-separated
+`Normalization/nt_to_tsv.py` does the reverse: it converts an N-Triples file into a file of tab-separated
 triples (subject, predicate, object, no header). Use it, for example, to turn a normalized `.nt` into the
 TSV that Part 2 needs.
 
 ## Usage
 
 ```bash
-cd KG_Normalization
+cd Normalization
 
 python nt_to_tsv.py <input.nt> <output.tsv> [--prefix <namespace>] [--type-predicate NAME]
 ```

@@ -9,10 +9,10 @@ names with your own.
 | # | Item | Where it ends up |
 |---|---|---|
 | 1 | Triples as a TSV | `.data/<name>/<name>.tsv` (any location works) |
-| 2 | The same triples as N-Triples | `KG_Normalization/KG/<KG>/<name>.nt` |
-| 3 | Rules with PCA confidence between the threshold and 1 | `KG_Normalization/KG/<KG>/<rules>.csv` |
-| 4 | SHACL shapes for the relations of your graph | `KG_Normalization/Constraints/<constraints>/<constraints>.ttl` |
-| 5 | A matching `input.json` | `KG_Normalization/input.json` |
+| 2 | The same triples as N-Triples | `Normalization/KG/<KG>/<name>.nt` |
+| 3 | Rules with PCA confidence between the threshold and 1 | `Normalization/KG/<KG>/<rules>.csv` |
+| 4 | SHACL shapes for the relations of your graph | `Normalization/Constraints/<constraints>/<constraints>.ttl` |
+| 5 | A matching `input.json` | `Normalization/input.json` |
 
 ## Step 1 - Look at the graph
 
@@ -30,7 +30,7 @@ Decide the namespace now, for example `http://FrenchRoyalty.org/`. Everything el
 ## Step 2 - Convert the TSV to N-Triples
 
 ```bash
-cd KG_Normalization
+cd Normalization
 python tsv_to_nt.py ../.data/french_royalty/french_royalty.tsv \
     KG/FrenchRoyaltyTSV/french_royalty.nt --prefix http://FrenchRoyalty.org/
 ```
@@ -69,7 +69,7 @@ Rules mined on a different variant of the graph (for example the benchmark, whic
 Create a **new** folder, so no old `result_*` directory or other `.ttl` file is in it:
 
 ```
-KG_Normalization/Constraints/FrenchRoyaltyTSV/FrenchRoyaltyTSV.ttl
+Normalization/Constraints/FrenchRoyaltyTSV/FrenchRoyaltyTSV.ttl
 ```
 
 The file name must equal the folder name. Write one shape per anomaly, using the namespace of your graph and
@@ -87,7 +87,7 @@ The bundled shape uses `http://FrenchRoyalty.org/`, so it matches a graph conver
 
 ## Step 5 - Configure the run
 
-Edit `KG_Normalization/input.json`:
+Edit `Normalization/input.json`:
 
 ```json
 {
@@ -111,7 +111,7 @@ Checklist:
 ## Step 6 - Run
 
 ```bash
-cd KG_Normalization
+cd Normalization
 python Symbolic_predictions.py
 ```
 

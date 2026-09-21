@@ -14,7 +14,7 @@ Full documentation (installation, configuration, data formats, pipeline internal
 
 ```
 .
-├── KG_Normalization/
+├── Normalization/
 │   ├── KG/<KG>/                    # Benchmark knowledge graph (.nt) and its symbolic rules (.csv)
 │   ├── Constraints/<KG>/           # SHACL constraints
 │   ├── Output/<KG>/                # Output: predictions, enriched, validation, transformed
@@ -24,7 +24,7 @@ Full documentation (installation, configuration, data formats, pipeline internal
 │   ├── Validation.py
 │   ├── tsv_to_nt.py
 │   └── nt_to_tsv.py
-├── Validated_KG_Completion/
+├── Completion/
 │   ├── input_KGC.json
 │   ├── KGC.py
 │   ├── input_KGC_hpo.json
@@ -54,7 +54,7 @@ Full documentation (installation, configuration, data formats, pipeline internal
 | **Small**   | French Royalty    | 2                | 1,922      | 298          |
 |             | SynthLC-1000      | 25               | 22,335     | 2,665        |
 
-> The French Royalty rows describe the original benchmark graph. `KG_Normalization/KG/FrenchRoyalty/` now bundles a simplified variant (8,633 triples, 8 relations); see [docs/01-overview.md](docs/01-overview.md).
+> The French Royalty rows describe the original benchmark graph. `Normalization/KG/FrenchRoyalty/` now bundles a simplified variant (8,633 triples, 8 relations); see [docs/01-overview.md](docs/01-overview.md).
 
 ---
 ## ⚙️ Setup Instructions
@@ -69,13 +69,13 @@ Full documentation (installation, configuration, data formats, pipeline internal
    pip install -r requirements.txt
    ```
 
-3. **KG_Normalization**
+3. **Normalization**
 
-Navigate to `KG_Normalization` folder and follow the steps in README of that folder
+Navigate to `Normalization` folder and follow the steps in README of that folder
 
-4. **Validated_KG_Completion**
+4. **Completion**
 
-Navigate to `Validated_KG_Completion` folder and follow the steps in README of that folder
+Navigate to `Completion` folder and follow the steps in README of that folder
 
 ## 📈 Evaluation Metrics
 

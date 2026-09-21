@@ -23,7 +23,7 @@ Changes made to the code and documentation after the benchmark release. Dates ar
     `Transformed_<KG>/`, predictions in `Predictions/`.
   - Now: `Output/<KG>/validation/`, `Output/<KG>/transformed/`, `Output/<KG>/predictions/` and
     `Output/<KG>/enriched/`.
-  - Existing `Transformed_<Benchmark>/` folders in the repository are earlier results and are not touched.
+  - The benchmark results committed under `Transformed_<Benchmark>/` and `Predictions/` were moved as well (see below).
   - Reason: TravSHACL parses every `.ttl` file under the constraints folder. A `validationReport.ttl`
     produced by an earlier run was parsed as a shape file on the next run and made it fail.
     With inputs and outputs in separate folders, runs can be repeated safely.
@@ -37,7 +37,7 @@ Changes made to the code and documentation after the benchmark release. Dates ar
   | `Transformed_<KG>/TransformedKG_<KG>.nt` | `Output/<KG>/transformed/<KG>_normalized.nt` |
 
   Everything a run writes for a KG is now under `Output/<KG>/` (`predictions/`, `enriched/`, `validation/`,
-  `transformed/`). The `Predictions/` folders of the other benchmarks are earlier results and are not moved.
+  `transformed/`).
   "Expanded" is the graph after predicate-object expansion, "normalized" the final graph. The files written
   by TravSHACL in `validation/` keep their names.
 - **Committed `Transformed_<Benchmark>/` folders moved into `Output/<KG>/transformed/`:**
@@ -51,7 +51,15 @@ Changes made to the code and documentation after the benchmark release. Dates ar
 
   The SGKG results are filed under the KG name `SGKG` (the name of its `KG/`, `Constraints/` and
   `Predictions/` folders), not `SGKG4`. `Transformed_FrenchRoyalty/` was deleted, since a fresh run replaces
-  it in `Output/FrenchRoyalty/transformed/`. The `Predictions/` folders of SGKG and SynthLC are not moved.
+  it in `Output/FrenchRoyalty/transformed/`.
+- **Committed `Predictions/` folders moved into `Output/<KG>/`** (`<KG>` is `SGKG`, `SynthLC-1000` or
+  `SynthLC-10000`). The `Predictions/` folder no longer exists.
+
+  | Before | Now |
+  |---|---|
+  | `Predictions/<KG>_predictions/<predicate>.tsv` | `Output/<KG>/predictions/<predicate>.tsv` |
+  | `Predictions/SGKG_EnrichedKG/SGKG4_Enriched_KG.{nt,tsv}` | `Output/SGKG/enriched/SGKG_enriched.{nt,tsv}` |
+  | `Predictions/<KG>_EnrichedKG/<KG>_Enriched_KG.nt` | `Output/<KG>/enriched/<KG>_enriched.nt` |
 - **`Validation.py`**: `travshacl(enrichedKG, constraints, kg)` is now
   `travshacl(enrichedKG, constraints, output_dir)`. It creates `output_dir` if it does not exist.
 - **`Symbolic_predictions.py`**: `initialize()` also returns `validation_folder` (`Output/<KG>/validation`)

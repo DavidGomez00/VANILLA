@@ -40,7 +40,7 @@ the object column is the constant from the rule head.
 
 Runs stage 1. Filters rules, runs the queries per head predicate, writes
 `<predictions_folder>/<predicate>.tsv` files, builds the enriched graph and writes it to
-`Predictions/<kg>_EnrichedKG/<kg>_Enriched_KG.nt`. Returns the predictions and the enriched graph.
+`Predictions/<kg>_enriched/<kg>_enriched.nt`. Returns the predictions and the enriched graph.
 Raises `ValueError` if any required lowercase column (`body`, `head`, `pca_confidence`, `std_confidence`,
 `functional_variable`) is missing.
 
@@ -56,9 +56,10 @@ Reads the JSON configuration and returns, in this order:
 | 4 | `path` | `KG/<KG>` |
 | 5 | `predictions_folder` | `Predictions/<KG>_predictions` |
 | 6 | `constraints` | `Constraints/<constraints_folder>` |
-| 7 | `validation_folder` | `Validation_results/<KG>` (**added**) |
-| 8 | `kg` | `input["KG"]` |
-| 9 | `pca_threshold` | `input["pca_threshold"]` |
+| 7 | `validation_folder` | `Output/<KG>/validation` (**added**) |
+| 8 | `transformed_folder` | `Output/<KG>/transformed` (**added**) |
+| 9 | `kg` | `input["KG"]` |
+| 10 | `pca_threshold` | `input["pca_threshold"]` |
 
 ### Main block
 
@@ -127,10 +128,11 @@ Runs stage 3.
 | `enriched_kg` | - | Enriched graph |
 | `kg_name` | current directory name | Names the outputs |
 | `shapes_file` | `Constraints/<kg_name>/<kg_name>.ttl` | Shapes to analyse (**added**) |
-| `validation_dir` | `Validation_results/<kg_name>` | Folder containing `validationReport.ttl` (**added**) |
+| `validation_dir` | `Output/<kg_name>/validation` | Folder containing `validationReport.ttl` (**added**) |
+| `output_dir` | `Output/<kg_name>/transformed` | Folder receiving the transformed KGs (**added**) |
 
-Writes `Transformed_<kg_name>/InitialTransformedKG_<kg_name>.nt` and
-`Transformed_<kg_name>/TransformedKG_<kg_name>.nt`. The two new parameters replace hard-coded paths of the
+Writes `Output/<kg_name>/transformed/<kg_name>_expanded.nt` and
+`Output/<kg_name>/transformed/<kg_name>_normalized.nt`. The two new parameters replace hard-coded paths of the
 form `Constraints/<kg_name>/...`, which ignored `constraints_folder`.
 
 ## tsv_to_nt.py

@@ -245,7 +245,7 @@ def transform_triple(triple: Tuple[URIRef, URIRef, URIRef],
 
 
 def transform(enriched_kg: Graph, kg_name: str = None, shapes_file: str = None,
-              validation_dir: str = None) -> Graph:
+              validation_dir: str = None, output_dir: str = None) -> Graph:
     """
     Transforms a given enriched knowledge graph (KG) based on a series of predicate-object transformations,
     SHACL constraints, and violation reports. The transformation involves modifying triples in the graph as
@@ -256,7 +256,8 @@ def transform(enriched_kg: Graph, kg_name: str = None, shapes_file: str = None,
         kg_name: The name associated with the KG. If not provided, it is derived from the current directory.
         shapes_file: Path to the SHACL shapes file. Defaults to Constraints/<kg_name>/<kg_name>.ttl.
         validation_dir: Directory holding the validation results (validationReport.ttl).
-            Defaults to Validation_results/<kg_name>.
+            Defaults to Output/<kg_name>/validation.
+        output_dir: Directory receiving the transformed KGs. Defaults to Output/<kg_name>/transformed.
 
     Returns:
         Graph: The final transformed RDF graph after applying all transformations.
@@ -279,16 +280,16 @@ def transform(enriched_kg: Graph, kg_name: str = None, shapes_file: str = None,
         print(f"Created transformed KG with {len(list(enriched_kg_transform))} triples")
 
         # Save the initial transformation
-        output_dir = f"./Transformed_{kg_name}"
+        output_dir = output_dir or f"Output/{kg_name}/transformed"
         os.makedirs(output_dir, exist_ok=True)
-        initial_transform_file = f"{output_dir}/InitialTransformedKG_{kg_name}.nt"
+        initial_transform_file = f"{output_dir}/{kg_name}_expanded.nt"
         enriched_kg_transform.serialize(destination=initial_transform_file, format='nt')
         print(f"Saved initial transformed KG to {initial_transform_file}")
 
         shapes_file = shapes_file or f"Constraints/{kg_name}/{kg_name}.ttl"
-        validation_dir = validation_dir or f"Validation_results/{kg_name}"
+        validation_dir = validation_dir or f"Output/{kg_name}/validation"
         violation_report = f"{validation_dir}/validationReport.ttl"
-        output_file = f"{output_dir}/TransformedKG_{kg_name}.nt"
+        output_file = f"{output_dir}/{kg_name}_normalized.nt"
 
         print("Processing SHACL constraints...")
         constraint_patterns = process_shacl_shapes(shapes_file)

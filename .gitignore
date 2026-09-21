@@ -9,3 +9,6 @@
 *.pyc
 *.pyo
 *.pyd
+
+# Runs
+KG_Normalization/logs

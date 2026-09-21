@@ -32,15 +32,15 @@ normalize a graph. Part 2 is described in [09](09-validated-kg-completion.md).
 flowchart LR
     KG[("KG<br/>KG/&lt;KG&gt;/*.nt")] --> P
     R[("Rules<br/>Rules/*.csv")] --> P
-    P["1. Rule application<br/>process_rules"] --> E[("Enriched KG<br/>Predictions/&lt;KG&gt;_EnrichedKG")]
+    P["1. Rule application<br/>process_rules"] --> E[("Enriched KG<br/>Predictions/&lt;KG&gt;_enriched")]
     P --> PR[("Predictions per predicate<br/>Predictions/&lt;KG&gt;_predictions")]
     E --> V["2. SHACL validation<br/>travshacl"]
     C[("SHACL shapes<br/>Constraints/&lt;name&gt;/*.ttl")] --> V
-    V --> VR[("Validation report<br/>Validation_results/&lt;KG&gt;")]
+    V --> VR[("Validation report<br/>Output/&lt;KG&gt;/validation")]
     E --> T["3. Normalization<br/>transform"]
     VR --> T
     C --> T
-    T --> N[("Normalized KG<br/>Transformed_&lt;KG&gt;")]
+    T --> N[("Normalized KG<br/>Output/&lt;KG&gt;/transformed")]
 ```
 
 1. **Rule application.** Horn rules mined from the graph (for example with AMIE) are filtered by PCA
@@ -96,6 +96,6 @@ Inputs and earlier results for these benchmarks are stored under `KG_Normalizati
 | Component | Library |
 |---|---|
 | RDF handling, SPARQL | `rdflib` |
-| Rule table filtering | `pandas`, `pandasql` (SQL over data frames) |
+| Rule table filtering | `pandas` |
 | SHACL validation | `TravSHACL` |
 | Embedding models | `pykeen` (with `torch`) |

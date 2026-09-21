@@ -122,7 +122,7 @@ Watch the console for:
 | `Detected rule type: variable` | Matches your rules (variable or constant). |
 | `Total number of rules utilized: N` | If `0`, see step 3. |
 | `<predicate>: R rules, P predictions` | Which relations gained triples. |
-| `Constraint Validation Result saved to Validation_results/<KG>` | Validation ran. |
+| `Constraint Validation Result saved to Output/<KG>/validation` | Validation ran. |
 | `Found N violations` | Number of violation entries in the report. |
 | `Applying M transformations...` | Triples that were renamed. |
 
@@ -130,12 +130,12 @@ Watch the console for:
 
 ```bash
 # What changed between the expanded and the normalized graph
-sort Transformed_FrenchRoyaltyTSV/InitialTransformedKG_FrenchRoyaltyTSV.nt > /tmp/a
-sort Transformed_FrenchRoyaltyTSV/TransformedKG_FrenchRoyaltyTSV.nt         > /tmp/b
+sort Output/FrenchRoyaltyTSV/transformed/FrenchRoyaltyTSV_expanded.nt > /tmp/a
+sort Output/FrenchRoyaltyTSV/transformed/FrenchRoyaltyTSV_normalized.nt > /tmp/b
 diff /tmp/a /tmp/b | head
 
 # How many targets were valid / invalid
-cat Validation_results/FrenchRoyaltyTSV/stats.txt
+cat Output/FrenchRoyaltyTSV/validation/stats.txt
 ```
 
 Interpretation:

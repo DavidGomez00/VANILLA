@@ -20,7 +20,7 @@ accident.
 
 | Key | Type | Meaning | Used to build |
 |---|---|---|---|
-| `KG` | string | Name of the run. Names the input folder and all output folders/files. | `KG/<KG>/`, `Predictions/<KG>_*`, `Validation_results/<KG>/`, `Transformed_<KG>/` |
+| `KG` | string | Name of the run. Names the input folder and all output folders/files. | `KG/<KG>/`, `Predictions/<KG>_*`, `Output/<KG>/validation/`, `Output/<KG>/transformed/` |
 | `prefix` | string | Namespace prepended to bare names when reading rules, and stripped from results. Must end in `/` or `#`. | SPARQL `PREFIX ex:` |
 | `rules_file` | string | File name of the rules CSV. | `Rules/<rules_file>` |
 | `rdf_file` | string | File name of the N-Triples graph. | `KG/<KG>/<rdf_file>` |
@@ -40,9 +40,9 @@ accident.
 | SHACL shapes | `Constraints/<constraints_folder>/` |
 | Shapes file read by the normalization step | `Constraints/<constraints_folder>/<constraints_folder>.ttl` |
 | Predictions per predicate | `Predictions/<KG>_predictions/<predicate>.tsv` |
-| Enriched KG | `Predictions/<KG>_EnrichedKG/<KG>_Enriched_KG.nt` |
-| Validation results | `Validation_results/<KG>/` |
-| Normalized KG | `Transformed_<KG>/` |
+| Enriched KG | `Predictions/<KG>_enriched/<KG>_enriched.nt` |
+| Validation results | `Output/<KG>/validation/` |
+| Normalized KG | `Output/<KG>/transformed/` |
 | Log file | `logs/symbolic_predictions_<timestamp>.log` |
 
 ### prefix
@@ -58,9 +58,9 @@ If the prefix in `input.json` differs from the namespace in the graph, rule quer
 predictions are produced. If the SHACL shapes use a different namespace than the graph, validation finds
 nothing.
 
-> The repository's benchmark `KG/FrenchRoyalty/french_royalty.nt` used the spelling
-> `http://FrenchRoaylty.org/`, while the shape in `Constraints/FrenchRoyalty/FrenchRoyalty.ttl` uses
-> `http://FrenchRoyalty.org/`. That mismatch means the shipped shape matches nothing in that `.nt`.
+> The bundled `KG/FrenchRoyalty/french_royalty.nt`, the shape in `Constraints/FrenchRoyalty/FrenchRoyalty.ttl`
+> and `input.json` all use `http://FrenchRoyalty.org/`. An earlier `input.json` used the misspelling
+> `http://FrenchRoaylty.org/`, which produced 0 predictions.
 
 ### pca_threshold
 

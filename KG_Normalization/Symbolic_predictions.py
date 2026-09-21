@@ -4,7 +4,6 @@ Unified script for handling symbolic predictions with and without constants
 import json
 import pandas as pd
 from rdflib.plugins.sparql.processor import SPARQLResult
-from pandasql import sqldf
 from rdflib import Graph, URIRef
 import re
 import os
@@ -279,8 +278,9 @@ def process_rules(file, prefix, rdf_data, predictions_folder, kg, pca_threshold)
     pca_col = 'pca_confidence'
 
     # First filter rules that meet PCA confidence threshold
-    q_filter = f"""SELECT DISTINCT head, COUNT(*) AS num FROM rules WHERE {pca_col} < 1 AND {pca_col} > {pca_threshold} GROUP BY head ORDER BY num DESC"""
-    head_df = sqldf(q_filter, locals())
+    pca_mask = (rules[pca_col] < 1) & (rules[pca_col] > pca_threshold)
+    head_df = (rules[pca_mask].groupby('head').size().reset_index(name='num')
+               .sort_values('num', ascending=False, kind='stable'))
 
     if head_df.empty:
         print("No rules found meeting the PCA confidence threshold criteria.")
@@ -301,13 +301,8 @@ def process_rules(file, prefix, rdf_data, predictions_folder, kg, pca_threshold)
             print(f"\nProcessing rules for predicate: {head_val}")
 
             # Select rules for current head predicate with PCA confidence threshold
-            q2 = f"""
-                SELECT * FROM rules 
-                WHERE head LIKE '%{head}%' 
-                AND {pca_col} < 1 AND {pca_col} > {pca_threshold} 
-                ORDER BY {confidence_col} DESC
-            """
-            rule_subset = sqldf(q2, locals())
+            rule_subset = (rules[pca_mask & rules['head'].str.contains(head, case=False, regex=False, na=False)]
+                           .sort_values(confidence_col, ascending=False, kind='stable'))
 
         print(f"Found {len(rule_subset)} rules for predicate {head_val}")
         total_utilized_rules += len(rule_subset)  # Add rules to total count
@@ -373,7 +368,7 @@ def process_rules(file, prefix, rdf_data, predictions_folder, kg, pca_threshold)
         pass
 
     # Save enriched knowledge graph
-    enriched_kg_path = os.path.join(os.path.dirname(predictions_folder), f"{kg}_EnrichedKG", f"{kg}_Enriched_KG.nt")
+    enriched_kg_path = os.path.join(os.path.dirname(predictions_folder), f"{kg}_enriched", f"{kg}_enriched.nt")
     os.makedirs(os.path.dirname(enriched_kg_path), exist_ok=True)
     g.serialize(destination=enriched_kg_path, format='nt')
     print(f"Enriched knowledge graph saved to: {enriched_kg_path}")
@@ -405,6 +400,7 @@ def initialize(input_config):
             - predictions_folder (str): Path to the predictions folder.
             - constraints (str): Path to the constraints folder (SHACL shapes only).
             - validation_folder (str): Path to the folder receiving the validation results.
+            - transformed_folder (str): Path to the folder receiving the transformed KGs.
             - kg (str): Name of the knowledge graph (KG).
             - pca_threshold (float): PCA threshold value from the configuration file.
     """
@@ -419,7 +415,9 @@ def initialize(input_config):
     rdf = os.path.join(path, input_data['rdf_file'])
     predictions_folder = os.path.join('Predictions', input_data['KG'] + "_predictions")
     constraints = os.path.join('Constraints',input_data['constraints_folder'])
-    validation_folder = os.path.join('Validation_results', input_data['KG'])
+    output_folder = os.path.join('Output', input_data['KG'])
+    validation_folder = os.path.join(output_folder, 'validation')
+    transformed_folder = os.path.join(output_folder, 'transformed')
     pca_threshold = input_data['pca_threshold']
 
     print(f"Configuration loaded:\n"
@@ -429,6 +427,7 @@ def initialize(input_config):
           f"- Predictions folder: {predictions_folder}\n"
           f"- Constraints folder: {constraints}\n"
           f"- Validation results folder: {validation_folder}\n"
+          f"- Transformed KG folder: {transformed_folder}\n"
           f"- PCA Threshold: {pca_threshold}")
 
     logger.info(f"Configuration loaded:\n "
@@ -438,9 +437,11 @@ def initialize(input_config):
           f"- Predictions folder: {predictions_folder}\n"
           f"- Constraints folder: {constraints}\n"
           f"- Validation results folder: {validation_folder}\n"
+          f"- Transformed KG folder: {transformed_folder}\n"
           f"- PCA Threshold: {pca_threshold}")
 
-    return prefix, rules, rdf, path, predictions_folder, constraints, validation_folder, kg, pca_threshold
+    return (prefix, rules, rdf, path, predictions_folder, constraints, validation_folder, transformed_folder,
+            kg, pca_threshold)
 
 
 if __name__ == '__main__':
@@ -474,7 +475,8 @@ if __name__ == '__main__':
         logger.info(f"Starting symbolic prediction process with config: {input_config}")
 
         #Initializaing from the input.json file
-        prefix, rulesfile, rdf_data, path, predictions_folder, constraints, validation_folder, kg, pca_threshold = initialize(input_config)
+        (prefix, rulesfile, rdf_data, path, predictions_folder, constraints, validation_folder,
+         transformed_folder, kg, pca_threshold) = initialize(input_config)
 
         # Process rules and generate symbolic predictions
         print("\nProcessing rules and generating predictions...")
@@ -488,7 +490,7 @@ if __name__ == '__main__':
         # Normalizing enriched KG (enrichedKG obtained from symbolic predictions)
         print("\nTransforming results...")
         shapes_file = os.path.join(constraints, os.path.basename(constraints) + '.ttl')
-        transform(enriched_kg, kg, shapes_file, validation_folder)
+        transform(enriched_kg, kg, shapes_file, validation_folder, transformed_folder)
 
         # Print execution time
         end_time = time.time()
@@ -500,4 +502,4 @@ if __name__ == '__main__':
         print(f"\n{error_msg}")
         if 'logger' in locals():
             logger.error(error_msg, exc_info=True)  # Logs the full traceback
-        raise
+        raise

@@ -15,10 +15,10 @@ Normalized KGs improve the predictive performance of numerical inductive learnin
 ```json
 {
   "KG": "FrenchRoyalty",
-  "prefix": "http://FrenchRoaylty.org/",
+  "prefix": "http://FrenchRoyalty.org/",
   "rules_file": "french_royalty.csv",
   "rdf_file": "french_royalty.nt",
-  "constraints_folder": "FrenchRoaylty",
+  "constraints_folder": "FrenchRoyalty",
   "log_level": "INFO",
   "pca_threshold": 0.75
 }

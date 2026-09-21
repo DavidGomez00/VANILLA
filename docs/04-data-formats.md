@@ -118,13 +118,13 @@ must contain nothing except shape files.
 | Output | Format |
 |---|---|
 | `Predictions/<KG>_predictions/<predicate>.tsv` | Tab-separated `subject predicate object`, bare names (prefix removed), no header. One file per head predicate that produced predictions. |
-| `Predictions/<KG>_EnrichedKG/<KG>_Enriched_KG.nt` | N-Triples: the input graph plus all predictions. |
-| `Validation_results/<KG>/validationReport.ttl` | SHACL validation report (Turtle). |
-| `Validation_results/<KG>/stats.txt` | Number of valid and invalid targets, query counts and timings. |
-| `Validation_results/<KG>/targets_valid.log`, `targets_violated.log` | Lists of valid and violating target nodes. |
-| `Validation_results/<KG>/traces.csv`, `validation.log` | Execution trace and log. |
-| `Transformed_<KG>/InitialTransformedKG_<KG>.nt` | Enriched KG after predicate-object expansion. |
-| `Transformed_<KG>/TransformedKG_<KG>.nt` | The final normalized KG. |
+| `Predictions/<KG>_enriched/<KG>_enriched.nt` | N-Triples: the input graph plus all predictions. |
+| `Output/<KG>/validation/validationReport.ttl` | SHACL validation report (Turtle). |
+| `Output/<KG>/validation/stats.txt` | Number of valid and invalid targets, query counts and timings. |
+| `Output/<KG>/validation/targets_valid.log`, `targets_violated.log` | Lists of valid and violating target nodes. |
+| `Output/<KG>/validation/traces.csv`, `validation.log` | Execution trace and log. |
+| `Output/<KG>/transformed/<KG>_expanded.nt` | Enriched KG after predicate-object expansion. |
+| `Output/<KG>/transformed/<KG>_normalized.nt` | The final normalized KG. |
 | `logs/symbolic_predictions_<timestamp>.log` | Run log. |
 
 Part 2 (`KGC.py`) reads **TSV**, not N-Triples, so the normalized `.nt` has to be converted to a

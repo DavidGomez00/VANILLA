@@ -20,9 +20,9 @@ sequenceDiagram
     M->>M: initialize(input.json)
     M->>R: rules, prefix, KG, threshold
     R-->>M: predictions, enriched graph
-    M->>V: enriched graph, constraints folder, Validation_results/KG
+    M->>V: enriched graph, constraints folder, Output/KG/validation
     V-->>M: validation results (files)
-    M->>T: enriched graph, KG name, shapes file, Validation_results/KG
+    M->>T: enriched graph, KG name, shapes file, Output/KG/validation
     T-->>M: normalized graph (files)
 ```
 
@@ -44,10 +44,11 @@ raised. There are no alternative spellings.
 
 ### 1.2 Select rules
 
-A SQL query (run with `pandasql`) keeps the rules with `pca_threshold < PCA < 1` and groups them by `head`:
+The rules are filtered with `pandas` to keep those with `pca_threshold < PCA < 1`, then grouped by `head` and
+counted. The heads are processed in descending order of rule count, which is the result of:
 
 ```sql
-SELECT DISTINCT head, COUNT(*) AS num FROM rules
+SELECT head, COUNT(*) AS num FROM rules
 WHERE pca_confidence < 1 AND pca_confidence > <pca_threshold>
 GROUP BY head ORDER BY num DESC
 ```
@@ -106,7 +107,7 @@ all rules of one head predicate are written to `Predictions/<KG>_predictions/<pr
 ### 1.5 Build the enriched KG
 
 All predictions are added to an `rdflib` graph that was loaded from the input `.nt`. The result is
-serialized to `Predictions/<KG>_EnrichedKG/<KG>_Enriched_KG.nt`.
+serialized to `Predictions/<KG>_enriched/<KG>_enriched.nt`.
 
 A summary is printed and logged: rules used, predictions generated, predictions per rule, and both counts
 per predicate.
@@ -124,7 +125,7 @@ The enriched graph and the constraints folder are given to TravSHACL with these 
 | `save_outputs` | True | Write results to the output directory |
 
 The endpoint is the in-memory enriched `rdflib` graph. The results directory is
-`Validation_results/<KG>/`, and it is created if it does not exist. It is deliberately **outside** the
+`Output/<KG>/validation/`, and it is created if it does not exist. It is deliberately **outside** the
 constraints folder, because TravSHACL parses every `.ttl` file below the constraints folder as a shape
 file. A `validationReport.ttl` left in there by an earlier run would otherwise be parsed as a shape on the
 next run and crash it. See [06](06-shacl-constraints.md#why-results-are-kept-outside-the-constraints-folder).
@@ -153,7 +154,7 @@ Every triple `(s, p, o)` is replaced with `(s, p_<local name of o>, o)`:
 
 The graph keeps the same number of triples, but each triple now has a predicate specific to its object. A
 dictionary from each new predicate to the original one is kept. The result is saved to
-`Transformed_<KG>/InitialTransformedKG_<KG>.nt`.
+`Output/<KG>/transformed/<KG>_expanded.nt`.
 
 ### 3.2 Read constraints and violations
 
@@ -161,7 +162,7 @@ dictionary from each new predicate to the original one is kept. The result is sa
   For every `sh:NodeShape` with an `sh:sparql` query it extracts the triple patterns. These are split into
   *condition patterns* (the main part of the query) and *filter patterns* (inside the one
   `FILTER [NOT] EXISTS { ... }` block). See [06](06-shacl-constraints.md#how-normalization-reads-a-shape).
-- `process_validation_report` reads `Validation_results/<KG>/validationReport.ttl` and returns a list of
+- `process_validation_report` reads `Output/<KG>/validation/validationReport.ttl` and returns a list of
   `(focus node, source shape)` pairs.
 
 ### 3.3 Rewrite the violating nodes
@@ -196,7 +197,7 @@ fact, instead of learning it as a normal spouse edge. The triple count does not 
 
 ### 3.4 Output
 
-The final graph is written to `Transformed_<KG>/TransformedKG_<KG>.nt`, and a summary is printed: original
+The final graph is written to `Output/<KG>/transformed/<KG>_normalized.nt`, and a summary is printed: original
 triples, initially transformed triples, final transformed triples, and violations processed.
 
 ## Run summary
@@ -205,9 +206,9 @@ For each run you get, under `KG_Normalization/`:
 
 ```
 Predictions/<KG>_predictions/           <predicate>.tsv, one per predicted predicate
-Predictions/<KG>_EnrichedKG/            <KG>_Enriched_KG.nt
-Validation_results/<KG>/                validationReport.ttl, stats.txt, ...
-Transformed_<KG>/                       InitialTransformedKG_<KG>.nt, TransformedKG_<KG>.nt
+Predictions/<KG>_enriched/               <KG>_enriched.nt
+Output/<KG>/validation/                 validationReport.ttl, stats.txt, ...
+Output/<KG>/transformed/                <KG>_expanded.nt, <KG>_normalized.nt
 logs/                                   symbolic_predictions_<timestamp>.log
 ```
 

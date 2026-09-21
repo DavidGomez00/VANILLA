@@ -4,9 +4,17 @@ Each entry gives the symptom, the cause, and the fix.
 
 ## `AttributeError: 'Connection' object has no attribute 'cursor'`
 
-**Where:** first call to `sqldf` in `process_rules`.
-**Cause:** `pandasql` does not work with `pandas` 2.x and `SQLAlchemy` 2.x.
-**Fix:** `pip install "pandas<2" "numpy<2" "SQLAlchemy==1.4.41"`. See [02](02-installation.md).
+**Where:** first call to `sqldf` in `process_rules`, in older copies of the script.
+**Cause:** `pandasql` does not work with `pandas` 2.2 or newer when `SQLAlchemy` is 1.4.x.
+**Fix:** use the current `Symbolic_predictions.py`, which no longer imports `pandasql`. If you must keep the
+old script, install `pandas<2` and `numpy<2`. See [02](02-installation.md).
+
+## `FileNotFoundError: ... does not contain any shapes of the format SHACL`
+
+**Cause:** `constraints_folder` in `input.json` does not match a folder name under `Constraints/`, or the
+folder has no `.ttl` shape file. Folder names are case sensitive and a misspelling is enough.
+**Fix:** set `constraints_folder` to the exact folder name. The shapes file must be
+`Constraints/<constraints_folder>/<constraints_folder>.ttl`.
 
 ## `ValueError: Missing required column(s) in rules file: ...`
 
@@ -33,13 +41,14 @@ on nothing. Do not read a "successful" run in this case as a normalized graph.
 **Cause:** the constraints folder contains a stale `validationReport.ttl` (for example in a
 `result_<KG>/` subfolder from an old run), and TravSHACL is parsing it as a shape file.
 **Fix:** use a constraints folder that contains only shape files. Results are now written to
-`Validation_results/<KG>/`, so this does not recur for new runs. Remove any leftover `result_*` folder from
+`Output/<KG>/validation/`, so this does not recur for new runs. Remove any leftover `result_*` folder from
 the constraints folder you point at.
 
 ## Validation finds 0 violations on a graph that should have some
 
 **Cause A:** the namespace in the shapes differs from the one in the graph, so the shape matches no nodes.
-For instance `http://FrenchRoaylty.org/` (graph) vs `http://FrenchRoyalty.org/` (shape).
+For instance `http://FrenchRoaylty.org/` (graph) vs `http://FrenchRoyalty.org/` (shape); check that
+`prefix` in `input.json` matches too, otherwise no rule produces predictions.
 **Cause B:** `sh:targetClass` names a class that has no `rdf:type` triples in the graph.
 **Fix:** align the namespace and check `stats.txt` (`all targets` should be greater than zero).
 
@@ -56,7 +65,7 @@ patterns. The normalization step reads `Constraints/<constraints_folder>/<constr
 **Fix:** name the file after the folder; make sure each shape is `a sh:NodeShape` with `sh:sparql`, and that
 predicates are written as `<full IRI>`.
 
-## `FileNotFoundError` for `Validation_results/<KG>/validationReport.ttl`
+## `FileNotFoundError` for `Output/<KG>/validation/validationReport.ttl`
 
 **Cause:** validation did not complete, so no report exists, or `transform` was called by hand with a
 different `validation_dir`.

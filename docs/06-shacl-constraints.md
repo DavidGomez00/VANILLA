@@ -11,14 +11,16 @@ KG_Normalization/
 ├── Constraints/
 │   └── <constraints_folder>/               ← value of "constraints_folder" in input.json
 │       └── <constraints_folder>.ttl        ← the shapes: the only file you write
-└── Validation_results/
+└── Output/
     └── <KG>/                               ← value of "KG"; created by the run
-        ├── validationReport.ttl
-        ├── stats.txt
-        ├── targets_valid.log
-        ├── targets_violated.log
-        ├── traces.csv
-        └── validation.log
+        ├── validation/
+        │   ├── validationReport.ttl
+        │   ├── stats.txt
+        │   ├── targets_valid.log
+        │   ├── targets_violated.log
+        │   ├── traces.csv
+        │   └── validation.log
+        └── transformed/                    ← the normalized KGs
 ```
 
 Rules for the constraints folder:
@@ -27,7 +29,7 @@ Rules for the constraints folder:
 2. **The shapes the normalization step reads must be in `<constraints_folder>.ttl`**, named after the
    folder. Other `.ttl` files in the folder are still validated, but only this one is used to work out how
    to rewrite triples.
-3. **Nothing is written into it.** Validation results go to `Validation_results/<KG>/`.
+3. **Nothing is written into it.** Validation results go to `Output/<KG>/validation/`.
 
 ### Why results are kept outside the constraints folder
 
@@ -159,8 +161,8 @@ exS:FatherIsMother a sh:NodeShape ;
 ```
 
 These two shapes are examples of the pattern, not tested constraints that ship with the repository. Test any
-new shape on a small graph first, and compare `InitialTransformedKG_<KG>.nt` with
-`TransformedKG_<KG>.nt` to see exactly what was rewritten.
+new shape on a small graph first, and compare `<KG>_expanded.nt` with
+`<KG>_normalized.nt` to see exactly what was rewritten.
 
 Several shapes can be placed in one file. The bundled shapes contain a single shape each, so multi-shape
 files are supported by the parser code but were not exercised by the repository's own runs.
@@ -170,4 +172,4 @@ files are supported by the parser code but were not exercised by the repository'
 `Constraints/<Benchmark>/<Benchmark>.ttl` is provided for DB100K, FrenchRoyalty, SGKG, SynthLC-1000,
 SynthLC-10000 and YAGO3-10, along with `result_<Benchmark>/` folders containing results of earlier runs
 (`stats.txt`, logs, `validationReport.ttl`). Those result folders were produced before results moved to
-`Validation_results/` and are kept only as reference.
+`Output/<KG>/validation/` and are kept only as reference.

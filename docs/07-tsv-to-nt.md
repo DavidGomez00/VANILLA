@@ -1,12 +1,15 @@
 # 07 - tsv_to_nt.py and nt_to_tsv.py
 
-`Normalization/tsv_to_nt.py` converts a file of tab-separated triples into an N-Triples file, which is
+> These scripts live in `Utils/`, a folder that is git-ignored and not part of the repository. They exist
+> only in local checkouts where you created them. Paths below are relative to `Utils/`.
+
+`Utils/tsv_to_nt.py` converts a file of tab-separated triples into an N-Triples file, which is
 the format the normalization pipeline reads.
 
 ## Usage
 
 ```bash
-cd Normalization
+cd Utils
 
 python tsv_to_nt.py <input.tsv> <output.nt> --prefix <namespace> [--type-predicate NAME]
 ```
@@ -15,14 +18,14 @@ Example, using the French Royalty TSV stored in the local `.data` folder:
 
 ```bash
 python tsv_to_nt.py ../.data/french_royalty/french_royalty.tsv \
-    KG/FrenchRoyaltyTSV/french_royalty.nt \
+    ../Normalization/KG/FrenchRoyaltyTSV/french_royalty.nt \
     --prefix http://FrenchRoyalty.org/
 ```
 
 Output:
 
 ```
-Wrote 8633 triples to KG/FrenchRoyaltyTSV/french_royalty.nt (0 lines skipped)
+Wrote 8633 triples to ../Normalization/KG/FrenchRoyaltyTSV/french_royalty.nt (0 lines skipped)
 ```
 
 ## Arguments
@@ -56,7 +59,7 @@ from tsv_to_nt import convert
 
 written, skipped = convert(
     tsv_path="../.data/french_royalty/french_royalty.tsv",
-    nt_path="KG/FrenchRoyaltyTSV/french_royalty.nt",
+    nt_path="../Normalization/KG/FrenchRoyaltyTSV/french_royalty.nt",
     prefix="http://FrenchRoyalty.org/",
     type_predicate="type",
 )
@@ -70,7 +73,7 @@ The output should parse without errors:
 
 ```python
 from rdflib import Graph
-g = Graph().parse("KG/FrenchRoyaltyTSV/french_royalty.nt", format="nt")
+g = Graph().parse("../Normalization/KG/FrenchRoyaltyTSV/french_royalty.nt", format="nt")
 print(len(g))
 ```
 
@@ -87,14 +90,14 @@ For the French Royalty variant, the count matches the number of lines of the TSV
 
 # nt_to_tsv.py
 
-`Normalization/nt_to_tsv.py` does the reverse: it converts an N-Triples file into a file of tab-separated
+`Utils/nt_to_tsv.py` does the reverse: it converts an N-Triples file into a file of tab-separated
 triples (subject, predicate, object, no header). Use it, for example, to turn a normalized `.nt` into the
 TSV that Part 2 needs.
 
 ## Usage
 
 ```bash
-cd Normalization
+cd Utils
 
 python nt_to_tsv.py <input.nt> <output.tsv> [--prefix <namespace>] [--type-predicate NAME]
 ```
@@ -102,7 +105,7 @@ python nt_to_tsv.py <input.nt> <output.tsv> [--prefix <namespace>] [--type-predi
 Example:
 
 ```bash
-python nt_to_tsv.py Output/FrenchRoyalty/transformed/FrenchRoyalty_normalized.nt \
+python nt_to_tsv.py ../Normalization/Output/FrenchRoyalty/transformed/FrenchRoyalty_normalized.nt \
     ../.data/french_royalty/french_royalty_normalized.tsv \
     --prefix http://FrenchRoyalty.org/
 ```
@@ -137,7 +140,7 @@ through both scripts gives the original file, apart from duplicates and ordering
 from nt_to_tsv import convert
 
 written, skipped = convert(
-    nt_path="Output/FrenchRoyalty/transformed/FrenchRoyalty_normalized.nt",
+    nt_path="../Normalization/Output/FrenchRoyalty/transformed/FrenchRoyalty_normalized.nt",
     tsv_path="../.data/french_royalty/french_royalty_normalized.tsv",
     prefix="http://FrenchRoyalty.org/",
 )

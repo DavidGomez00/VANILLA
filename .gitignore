@@ -13,3 +13,5 @@
 
 # Runs
 Normalization/logs
+# Local utility scripts (not part of the project)
+Utils

@@ -30,9 +30,9 @@ Decide the namespace now, for example `http://FrenchRoyalty.org/`. Everything el
 ## Step 2 - Convert the TSV to N-Triples
 
 ```bash
-cd Normalization
+cd Utils    # local, git-ignored folder, see 07
 python tsv_to_nt.py ../.data/french_royalty/french_royalty.tsv \
-    KG/FrenchRoyaltyTSV/french_royalty.nt --prefix http://FrenchRoyalty.org/
+    ../Normalization/KG/FrenchRoyaltyTSV/french_royalty.nt --prefix http://FrenchRoyalty.org/
 ```
 
 See [07](07-tsv-to-nt.md).

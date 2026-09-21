@@ -33,6 +33,7 @@ VANILLA/
 ├── requirements.txt                Python dependencies
 ├── docs/                           This documentation
 ├── images/                         Figures used by the READMEs
+├── Utils/                          Local, git-ignored scripts: tsv_to_nt.py, nt_to_tsv.py
 ├── .data/                          Local, git-ignored working data (your own graphs, rules, ...)
 │
 ├── Normalization/               Part 1: symbolic normalization pipeline
@@ -40,8 +41,6 @@ VANILLA/
 │   ├── Symbolic_predictions.py     Entry point: rules -> predictions -> validation -> normalization
 │   ├── Validation.py               SHACL validation with TravSHACL
 │   ├── Normalization_transform.py  Rewrites triples that violate constraints
-│   ├── tsv_to_nt.py                Utility: TSV triples -> N-Triples
-│   ├── nt_to_tsv.py                Utility: N-Triples -> TSV triples
 │   ├── KG/<KG>/                    Input graph (.nt) and rules (.csv)
 │   ├── Constraints/<name>/         Input SHACL shapes (.ttl only)
 │   └── Output/<KG>/                Output: predictions/, enriched/, validation/ and transformed/

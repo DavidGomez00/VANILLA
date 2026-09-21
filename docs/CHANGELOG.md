@@ -14,6 +14,9 @@ Changes made to the code and documentation after the benchmark release. Dates ar
 
 ### Changed
 
+- **`tsv_to_nt.py` and `nt_to_tsv.py` moved** from `Normalization/` to `Utils/`, which is git-ignored and no
+  longer tracked. They are local-only helpers; [07](07-tsv-to-nt.md) still describes them.
+
 - **Folders renamed:** `KG_Normalization/` is now `Normalization/` and `Validated_KG_Completion/` is now
   `Completion/`. The `.gitignore` entry for the logs folder and all documentation paths were updated. Entries
   below this one still use the old folder names. Run the scripts from the new folders.

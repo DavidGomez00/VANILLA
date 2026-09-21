@@ -21,9 +21,7 @@ Full documentation (installation, configuration, data formats, pipeline internal
 │   ├── input.json                  # Configuration of a run
 │   ├── Symbolic_predictions.py     # Entry point
 │   ├── Normalization_transform.py
-│   ├── Validation.py
-│   ├── tsv_to_nt.py
-│   └── nt_to_tsv.py
+│   └── Validation.py
 ├── Completion/
 │   ├── input_KGC.json
 │   ├── KGC.py

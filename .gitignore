@@ -3,6 +3,7 @@
 .python-version
 .claude
 .idea
+.vscode
 
 # Python bytecode
 */__pycache__/

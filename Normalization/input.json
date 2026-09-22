@@ -5,5 +5,5 @@
   "rdf_file": "french_royalty.nt",
   "constraints_folder": "FrenchRoyalty",
   "log_level": "INFO",
-  "pca_threshold": 0.75
+  "pca_threshold": 0.95
 }
